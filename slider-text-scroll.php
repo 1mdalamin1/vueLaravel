@@ -8,7 +8,7 @@
  * Author URI:        https://www.vir-za.com/
  * License:           GPL v2 or later
  * License URI:       https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
- * Text Domain:       sts
+ * Text Domain:       slider-text-scroll
  */
 
 // Exit if accessed directly
@@ -32,7 +32,7 @@ if ($st8<0) {
   $minHight = $st8; 
 }
 $st9 = get_option('ests_loop') ? get_option('ests_loop') :'true';
-$st10= get_option('ests_text') ? get_option('ests_text') :__('It Designed, Developed, Maintained, Supported, vir-za.com','sts');
+$st10= get_option('ests_text') ? get_option('ests_text') :__('It Designed, Developed, Maintained, Supported, vir-za.com','slider-text-scroll');
 
 $arr = explode(",", $st10);
 $arr = array_map('trim', $arr); // to remove any extra white space around each element
@@ -55,7 +55,7 @@ $tStyle = get_option('ests_ts_text_style') ? get_option('ests_ts_text_style') :'
 $tgap   = get_option('ests_ts_text_gap') ? get_option('ests_ts_text_gap') :'30';
 $tdir   = get_option('ests_ts_text_dir') ? get_option('ests_ts_text_dir') :'left';
 $tdur   = get_option('ests_ts_text_dur') ? get_option('ests_ts_text_dur') :'10000';
-$text   = get_option('ests_ts_text') ? get_option('ests_ts_text') :__('Slider Text Scroll','sts');
+$text   = get_option('ests_ts_text') ? get_option('ests_ts_text') :__('Slider Text Scroll','slider-text-scroll');
 $visi   = get_option('ests_ts_start_visible') ? get_option('ests_ts_start_visible') :'false';
 
 define('ESTS_T_COLOR',$tColor);
@@ -118,8 +118,8 @@ add_action('admin_enqueue_scripts', 'ests_add_wp_admin_plugin_css');
 add_action("admin_menu", "ests_wp_admin_dashboard_sts_menu_reg");
 function ests_wp_admin_dashboard_sts_menu_reg() {
     add_menu_page(
-        __('Slider Text Scroll','sts'), // page title <?php echo __('','sts')?
-        __('Text Scroll','sts'), // menu title
+        __('Slider Text Scroll','slider-text-scroll'), 
+        __('Text Scroll','slider-text-scroll'), // menu title
         'manage_options', // capability
         'sliderTextScroll', // sluge
         'ests_text_scroll_setting_fun', // function for page
@@ -131,7 +131,7 @@ function ests_wp_admin_dashboard_sts_menu_reg() {
     //add submenu 2
     add_submenu_page(
         'sliderTextScroll', // parent menu slug
-        __('Slider Text ','sts'), // Page title
+        __('Slider Text ','slider-text-scroll'), // Page title
         'Text Slider', // Menu title
         'manage_options',  // Capability
         'textSlider', // sub menu slug
@@ -139,6 +139,8 @@ function ests_wp_admin_dashboard_sts_menu_reg() {
     );
 
 }
+
+
 
 
 // Including CSS
@@ -457,7 +459,7 @@ function ests_text_slider_setting_fun(){
               </td>
               <td colspan="3">
                   <textarea id="st9" name="ests_text" rows="4" cols="70"  value="<?php echo get_option('ests_text') ?>"><?php 
-                   $textArea = get_option('ests_text') ? get_option('ests_text') :__('It Designed, Developed, Maintained, Supported, vir-za.com','sts');
+                   $textArea = get_option('ests_text') ? get_option('ests_text') :__('It Designed, Developed, Maintained, Supported, vir-za.com','slider-text-scroll');
                    echo esc_html($textArea); ?></textarea>
               </td>
               </tr>
