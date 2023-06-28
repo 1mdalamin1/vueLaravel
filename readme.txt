@@ -1,31 +1,28 @@
-﻿=== Slider Text Scroll ===
+﻿=== Button Text Changer WC ===
 Contributors: 1mdalamin1
-Donate link: https://www.vir-za.com/
-Author URI: https://www.vir-za.com/
-Plugin URI: https://wordpress.org/plugins/slider-text-scroll/
-Tags: Simple Slider Text Scroll, Slider Text Scroll, text slider, text slider, rss text slider, woocommerce text slider, carousel, text carousel, quote, testimonials, Text Scroll.
+Donate link: https://www.fiverr.com/share/4Y1RVk
+Author URI: https://www.fiverr.com/share/4Y1RVk
+Plugin URI: https://wordpress.org/plugins/button-text-changer-wc/
+Tags: Add to Cart Text Changer and Customise Button, Button Text Changer WC, Add to Cart Text Changer, Add to Cart, checkout, woocommerce text, Apply coupon, Update Cart, cart, empty cart, Back to shop, Return to Shop.
 Requires at least: 5.2
-Tested up to: 6.2
+Tested up to: 6.2.2
 Stable tag: 1.0.0
 License: GPLv2 or later 
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Easy to add Slider Text Scroll via shortcode [sts] for every WordPress theme. Slider Text Scroll plugin will help you to enable Slider Text Scroll is a simple solution to create pretty text only sliders, scroll, typed, back typed etc. quickly and friendly.
+Button Text Changer in wooCommerce plugin will help you to put any custom text for wooCommerce button. Now can handle all types of wooCommerce buttons and for all kinds of pages. Like Shop page, Archive page, Single Product page, etc. Easily change WC Button Text. | .It Designed, Developed, Maintained & Supported by vir-za Team.
 
 == Description ==
-Slider Text Scroll plugin will help you to enable Slider Text Scroll is a simple solution to create pretty text only sliders, scroll, typed, back typed etc. quickly and friendly. you can insert shortcode [[sts], [sts move="sts"], [sts move="Any text here..."]] to anywhere...
-The plugin try to build all kinds Slider Text Scroll for users, in the current time, we offer a few shortcodes to build Text only carousel slider, Post Text Slider, Rss Text Slider, WooCommerce Text Slider... and so on.  
-You can use it to display quotes, client's testimonials, reviews, or show your post content in a text slider, or show rss feed of any site as a text slider in your site ... and so on.. It is compatible with all major browsers and should work with all themes, including responsive and high resolution themes.
+Button Text Changer WC plugin will help you to enable Button Text Changer WC is a simple solution to Almost like pro features. Now can handle all types of products and for all types page. Like Shop page, Archive page, Single Page, etc. Easily change wooCommerce buttons It is compatible with all major browsers and should work with all themes, including responsive and high resolution themes.
 
 <h4>Text only carousel slider:</h4>
-It is very easy to add / edit / delete text slider via text editor in admin area -> "Text Scroll" Menu 
-In frontend, you can insert shortcode [[sts], [sts move="sts"], [sts move="Any text here..."]] to anywhere in your post, in head, in footer, to show text auto slider in your wordpress site.
+It is very easy to add / edit / delete Button Text Changer via wooCommerce settings tab in admin area -> 
 
-Plugin Documentation: [https://wordpress.org/plugins/slider-text-scroll/](https://wordpress.org/plugins/slider-text-scroll/)
+Plugin Documentation: [https://wordpress.org/plugins/button-text-changer-wc/](https://wordpress.org/plugins/button-text-changer-wc/)
 
-*   [Live Demo](https://vir-za.com/slider-text-scroll/)	
+*   [Live Demo](https://vir-za.com/cart/)	
 *   [Need Help?](https://www.vir-za.com/contact/)		
-*   [About Author](https://github.com/1mdalamin1)
+*   [About Author](https://www.linkedin.com/in/1mdalamin1)
 
 
 == Video Tutorial ==
@@ -34,25 +31,23 @@ Plugin Documentation: [https://wordpress.org/plugins/slider-text-scroll/](https:
 
 ==  ⚡ You can changes settings ==
 *   No setup needed.
-*   Unlimited colors.  
-*   Customize Button
+*   any text set in wc button.  
+*   Product single page add to cart ajax Button
 
 
-You can make my day by submitting a positive review on <a href="https://wordpress.org/plugins/slider-text-scroll/" target="_blank"><strong>WordPress.org!</strong></a></p>
+You can make my day by submitting a positive review on <a href="https://wordpress.org/plugins/button-text-changer-wc/" target="_blank"><strong>WordPress.org!</strong></a></p>
 
 = Usage =
 
-* Go to your Dashboard after installation and navigate to "Text Scroll" to configure.
+* Go to your Dashboard after installation and wooCommerce settings tab to "btnTextChange".
 
 ==  ⚡ Features =
   * Ready to use without any setup
-  * Unlimited colors option.
-  * Shortcode shows you can use anywhere.
-  * Control animation
-  * Preview show
+  * Ajax button in single page
   * Very easy installation
   * Flexible and easy to use
   * Lightweight and fast
+  * Unlimited btn text change.
 
 
 == Installation ==
@@ -65,15 +60,15 @@ You can make my day by submitting a positive review on <a href="https://wordpres
 
 = AUTOMATIC INSTALLATION =
 
-Automatic installation is the easiest option. To automatically install Slider Text Scroll WP, log in to your WordPress dashboard, navigate the Plugins menu, and click Add New.
+Automatic installation is the easiest option. To automatically install Button Text Changer WC, log in to your WordPress dashboard, navigate the Plugins menu, and click Add New.
 
-In the search field, type Slider Text Scroll WP, and click Search Plugins. Once you've found our business directory plugin, you install it by clicking Install Now.
+In the search field, type Button Text Changer WC, and click Search Plugins. Once you've found our business directory plugin, you install it by clicking Install Now.
 
 = MANUAL INSTALLATION =
 
 The manual installation method involves downloading our Directory plugin and uploading it to your webserver via your favorite FTP application. The WordPress codex will tell you more [here](https://wordpress.org/documentation/article/manage-plugins/). [GeoDirectory basic installation](https://docs.wpgeodirectory.com/category/7-installation)
 
-1. Upload `slider-text-scroll` to the `/wp-content/plugins/` directory
+1. Upload `button-text-changer-wc` to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 
@@ -82,7 +77,7 @@ The manual installation method involves downloading our Directory plugin and upl
 Automatic updates should work seamlessly. We always suggest you backup your website before any automated update to avoid unforeseen problems.
 
 == Frequently asked questions ==
-= Is Simple Slider Text Scroll Wp free plugin? =
+= Is Simple Button Text Changer WC free plugin? =
 Yes, Its free WordPress Plugin. 
 
 = Can I customize this? =
