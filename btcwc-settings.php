@@ -33,6 +33,22 @@ function get_btcwc_fild_settings() {
             'desc_tip' => true,
             'name' => __('Add to Cart button', 'button-text-changer-wc'),
         ),
+
+        'btcwc_variable_add_to_cart' => array(
+            'id' => 'btcwc_variable_add_to_cart',
+            'desc' => __('Now you can set variable button text. Default it show View products.', 'button-text-changer-wc'),
+            'type' => 'text',
+            'desc_tip' => true,
+            'name' => __('View products', 'button-text-changer-wc'),
+        ),
+        'btcwc_group_product_add_to_cart' => array(
+            'id' => 'btcwc_group_product_add_to_cart',
+            'desc' => __('Now you can set group product button text. Default it show Read more.', 'button-text-changer-wc'),
+            'type' => 'text',
+            'desc_tip' => true,
+            'name' => __('read more', 'button-text-changer-wc'),
+        ),
+        
         'btcwc_order_btn_text' => array(
             'id' => 'btcwc_order_btn_text',
             'desc' => __('Now you can set checkout page order button text. Default it show Place order.', 'button-text-changer-wc'),

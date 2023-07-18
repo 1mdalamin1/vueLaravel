@@ -61,17 +61,6 @@ function btcwc_my_account_menu_order_label( $items ) {
     return $items;
 }
 
-// wooCommerce Add to cart btn 
-add_filter( 'woocommerce_product_add_to_cart_text', 'btcwc_change_add_to_cart_text' );
-add_filter( 'woocommerce_product_single_add_to_cart_text', 'btcwc_change_add_to_cart_text' );
-function btcwc_change_add_to_cart_text( $text ) {
-    // Modify the button text here
-    $addToCart = get_option( 'btcwc_fild_btcwc_add_to_cart' );
-    $text      = $addToCart ? $addToCart : 'Add to cart';
-
-    return $text;
-}
-
 // remove Default Proceed to checkout button
 add_action('template_redirect', 'btcwc_default_remove_proceed_to_checkout_button');
 function btcwc_default_remove_proceed_to_checkout_button() {
@@ -120,4 +109,50 @@ function btcwc_empty_cart_button ( $default_text ) {
 //     return $label;
 // }
 // add_filter( 'woocommerce_widget_cart_item_quantity', 'change_mini_cart_button_text' );
+
+
+/*
+// wooCommerce Add to cart btn 
+add_filter( 'woocommerce_product_add_to_cart_text', 'btcwc_change_add_to_cart_text' );
+add_filter( 'woocommerce_product_single_add_to_cart_text', 'btcwc_change_add_to_cart_text' );
+function btcwc_change_add_to_cart_text( $text ) {
+    // Modify the button text here
+    $addToCart = get_option( 'btcwc_fild_btcwc_add_to_cart' );
+    $text      = $addToCart ? $addToCart : 'Add to cart';
+
+    return $text;
+}
+*/
+
+// wooCommerce Add to cart btn 
+add_filter("woocommerce_product_add_to_cart_text","btcwc_change_add_to_cart_text", 10, 2);
+add_filter("woocommerce_product_single_add_to_cart_text","btcwc_change_add_to_cart_text", 10, 2);
+function btcwc_change_add_to_cart_text($add_to_cart_text, $product){
+
+    $product;
+
+    $product_type = $product->get_type();
+
+    if( $product_type == "variable" && is_shop()){
+
+        $variable_btn_text= get_option("btcwc_variable_add_to_cart");
+        $add_to_cart_text = $variable_btn_text ? $variable_btn_text : 'View products';
+        
+    }else if( $product_type == "group"){
+
+        $group_btn_text   = get_option("btcwc_group_product_add_to_cart");
+        $add_to_cart_text = $group_btn_text ? $group_btn_text : 'View Group products';
+
+    }else if( $product_type == "simple" ){
+
+        $addToCart        = get_option( 'btcwc_fild_btcwc_add_to_cart' );
+        $add_to_cart_text = $addToCart ? $addToCart : 'Add to cart';;
+    }
+    
+    return $add_to_cart_text;
+}
+
+
+
+
 
