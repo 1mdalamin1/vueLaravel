@@ -1,5 +1,7 @@
 <?php
 
+use App\Filters\MenuFilter;
+
 return [
 
     /*
@@ -14,7 +16,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'virza_ms',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -30,8 +32,8 @@ return [
     |
     */
 
-    'use_ico_only' => false,
-    'use_full_favicon' => false,
+    'use_ico_only' => true,
+    'use_full_favicon' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -64,7 +66,7 @@ return [
     */
 
     'logo' => '<b>Admin</b>LTE',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo_img' => 'vendor/adminlte/dist/img/vir-za_fb.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -86,7 +88,7 @@ return [
     'auth_logo' => [
         'enabled' => false,
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+            'path' => 'vendor/adminlte/dist/img/vir-za_fb.png',
             'alt' => 'Auth Logo',
             'class' => '',
             'width' => 50,
@@ -109,8 +111,8 @@ return [
     'preloader' => [
         'enabled' => true,
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
-            'alt' => 'AdminLTE Preloader Image',
+            'path' => 'vendor/adminlte/dist/img/vir-za_fb.png',
+            'alt' => 'Preloader Image',
             'effect' => 'animation__shake',
             'width' => 60,
             'height' => 60,
@@ -192,7 +194,7 @@ return [
     'classes_content_wrapper' => '',
     'classes_content_header' => '',
     'classes_content' => '',
-    'classes_sidebar' => 'sidebar-dark-primary elevation-4',
+    'classes_sidebar' => 'sidebar-light-primary elevation-4',
     'classes_sidebar_nav' => '',
     'classes_topnav' => 'navbar-white navbar-light',
     'classes_topnav_nav' => 'navbar-expand',
@@ -213,7 +215,7 @@ return [
     'sidebar_mini' => 'lg',
     'sidebar_collapse' => false,
     'sidebar_collapse_auto_size' => false,
-    'sidebar_collapse_remember' => false,
+    'sidebar_collapse_remember' => true,
     'sidebar_collapse_remember_no_transition' => true,
     'sidebar_scrollbar_theme' => 'os-theme-light',
     'sidebar_scrollbar_auto_hide' => 'l',
@@ -232,9 +234,9 @@ return [
     |
     */
 
-    'right_sidebar' => false,
+    'right_sidebar' => true,
     'right_sidebar_icon' => 'fas fa-cogs',
-    'right_sidebar_theme' => 'dark',
+    'right_sidebar_theme' => 'gray  elevation-1', // dark
     'right_sidebar_slide' => true,
     'right_sidebar_push' => true,
     'right_sidebar_scrollbar_theme' => 'os-theme-light',
@@ -259,7 +261,7 @@ return [
     'register_url' => 'register',
     'password_reset_url' => 'password/reset',
     'password_email_url' => 'password/email',
-    'profile_url' => false,
+    'profile_url' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -303,13 +305,30 @@ return [
 
         // Sidebar items:
         [
-            'type' => 'sidebar-menu-search',
-            'text' => 'search',
+            'text' => 'Dashboard',
+            'route' => 'dashboard',
+            'icon' => 'fas fa-fw fa-home',
         ],
         [
-            'text' => 'blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
+            'text' => 'Users',
+            'icon' => 'fas fa-fw fa-users',
+            'submenu'  => [
+                [
+                    'text' => 'All',
+                    'route' => 'users.index',
+                    'active' => ['users', 'users/*'],
+                ],
+                [
+                    'text' => 'Roles',
+                    'route' => 'users.roles.index',
+                    'active' => ['users/roles/*'],
+                ],
+                [
+                    'text' => 'Permissions',
+                    'route' => 'users.permissions.index',
+                    'active' => ['users/permissions/*'],
+                ],
+            ],
         ],
         [
             'text'        => 'pages',
@@ -321,14 +340,25 @@ return [
         ['header' => 'account_settings'],
         [
             'text' => 'profile',
-            'url'  => 'admin/settings',
+            'url'  => 'profile',
             'icon' => 'fas fa-fw fa-user',
         ],
         [
-            'text' => 'change_password',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
+            'text' => 'Settings',
+            'url'  => 'settings',
+            'icon' => 'fas fa-fw fa-cogs',
         ],
+        
+        [
+            'text' => 'test',
+            'route' => 'test',
+            'icon' => 'fa fa-fighter-jet',
+        ],
+        [
+            'text' => 'Test2',
+            'route' => 'test2',
+        ],
+
         [
             'text'    => 'multilevel',
             'icon'    => 'fas fa-fw fa-share',
@@ -405,6 +435,7 @@ return [
         JeroenNoten\LaravelAdminLte\Menu\Filters\ClassesFilter::class,
         JeroenNoten\LaravelAdminLte\Menu\Filters\LangFilter::class,
         JeroenNoten\LaravelAdminLte\Menu\Filters\DataFilter::class,
+        MenuFilter::class,
     ],
 
     /*
