@@ -64,3 +64,82 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## How to set up this Project Setup:
+Just do this step by step to set up this project.  the standard things you need to do to clone a GitHub repo onto your local computer and get it set up to start working on your system.
+
+### 1. Clone GitHub repo using the repository url.
+
+```
+git clone https://github.com/1mdalamin1/vueLaravel.git
+```
+
+### 2. go to the directory 
+```
+cd virza_ms
+```
+
+### 3. Install Composer Dependencies
+```
+composer install
+```
+
+### 4 Install NPM Dependencies
+```
+npm install
+```
+
+### 5. Create a copy of your .env file
+```
+ cp .env.example .env
+```
+
+
+### 6. Create an empty database for our application
+Create an empty database for your project, your database name should correspond with your project name.
+### 7. Add database information to allow Laravel to connect to the database.
+In the .env file fill in the DB_HOST, DB_PORT, DB_DATABASE, DB_USERNAME, and DB_PASSWORD options to match the details of the database you just created. This will allow us to run migrations and seed the database if there is any table to seed.
+```
+copy .env.example as .env
+```
+
+### 8. Generate an app encryption key
+```
+php artisan key:generate
+```
+
+### 9. Migrate the database
+
+```
+php artisan migrate
+```
+### 10. Generate permission
+
+```
+php artisan permission:generate
+```
+
+## 11. Seed the database
+
+```
+php artisan db:seed
+```
+## 11.1 if Seed the database fail
+```
+php artisan migrate:fresh --seed
+```
+
+## 12. start
+```
+php artisan serve
+```
+## 12.1 Start
+```
+npm run dev
+```
+
+# Great ! Done! 
+## 8. From Browser
+```html
+http://localhost:8000
+```
