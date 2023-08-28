@@ -127,7 +127,8 @@ php artisan permission:generate
 
 ```
 php artisan db:seed
-```or
+```
+or
 ```
 php artisan migrate:fresh --seed
 ```
@@ -143,6 +144,6 @@ npm run dev
 
 # Great ! Done! 
 ## 8. From Browser
-```html
+```
 http://localhost:8000
 ```
