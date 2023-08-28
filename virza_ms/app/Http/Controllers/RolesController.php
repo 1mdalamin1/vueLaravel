@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
-use DataTables;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Permission;
+use Yajra\DataTables\Facades\DataTables;
 use Yajra\DataTables\Contracts\DataTable;
 
 class RolesController extends Controller
@@ -129,9 +130,15 @@ class RolesController extends Controller
             })
             ->addColumn('action', function($row){
                 $action = "";
-                $action.="<a class='btn btn-xs btn-success' id='btnShow' href='".route('users.roles.show', $row->id)."'><i class='fas fa-eye'></i></a> "; 
-                $action .= '<a href="'.route("users.roles.edit", $row->id).'" class="btn btn-xs btn-warning" id="btnEdit"><i class="fas fa-edit"></i></a>';
-                $action .= '<button class="ml-2 btn btn-xs btn-outline-danger" id="btnDel" data-id="'.$row->id.'"><i class="fas fa-trash"></i></button>';
+                if(Auth::user()->can('users.roles.show')){
+                    $action.="<a class='btn btn-xs btn-success' id='btnShow' href='".route('users.roles.show', $row->id)."'><i class='fas fa-eye'></i></a> ";
+                } 
+                if(Auth::user()->can('users.roles.edit')){
+                    $action .= '<a href="'.route("users.roles.edit", $row->id).'" class="btn btn-xs btn-warning" id="btnEdit"><i class="fas fa-edit"></i></a>';
+                }
+                if(Auth::user()->can('users.roles.destroy')){
+                    $action .= '<button class="ml-2 btn btn-xs btn-outline-danger" id="btnDel" data-id="'.$row->id.'"><i class="fas fa-trash"></i></button>';
+                }
                 return $action;
             })
             ->make(true);

@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use DataTables; 
 use Carbon\Carbon;
 use App\Models\User; 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
-// use Laravel\Ui\Presets\React;
+use Yajra\DataTables\DataTables;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Auth;
+// use Laravel\Ui\Presets\React;
+use Illuminate\Support\Facades\Redirect;
+use Yajra\DataTables\Contracts\DataTable;
 
 class UsersController extends Controller
 {
@@ -34,7 +35,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //
+       
     }
 
     /**
@@ -73,7 +74,7 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**
@@ -135,6 +136,7 @@ class UsersController extends Controller
 
     private function getUsers()
     {
+        
         $data = User::with('roles')->get();
         return DataTables::of($data)
                 ->addColumn('name', function($row){

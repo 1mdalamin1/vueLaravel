@@ -83,6 +83,14 @@ cd virza_ms
 ```
 composer install
 ```
+or
+```
+composer install --ignore-platform-reqs
+```
+or
+```
+composer update --ignore-platform-reqs
+```
 
 ### 4 Install NPM Dependencies
 ```
@@ -94,14 +102,10 @@ npm install
  cp .env.example .env
 ```
 
-
 ### 6. Create an empty database for our application
 Create an empty database for your project, your database name should correspond with your project name.
 ### 7. Add database information to allow Laravel to connect to the database.
 In the .env file fill in the DB_HOST, DB_PORT, DB_DATABASE, DB_USERNAME, and DB_PASSWORD options to match the details of the database you just created. This will allow us to run migrations and seed the database if there is any table to seed.
-```
-copy .env.example as .env
-```
 
 ### 8. Generate an app encryption key
 ```
@@ -123,8 +127,7 @@ php artisan permission:generate
 
 ```
 php artisan db:seed
-```
-## 11.1 if Seed the database fail
+```or
 ```
 php artisan migrate:fresh --seed
 ```

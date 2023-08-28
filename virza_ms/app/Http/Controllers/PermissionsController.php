@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Permission;
+use Yajra\DataTables\DataTables;
 use Spatie\Permission\Models\Role;
-use DataTables;
+use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Models\Permission;
 
 class PermissionsController extends Controller
 {
@@ -124,8 +125,12 @@ class PermissionsController extends Controller
             })
             ->addColumn('action', function($row){
                 $action = "";
-                $action.="<a class='btn btn-xs btn-warning' id='btnEdit' href='".route('users.permissions.edit', $row->id)."'><i class='fas fa-edit'></i></a>"; 
-                $action.=" <button class='btn btn-xs btn-outline-danger' id='btnDel' data-id='".$row->id."'><i class='fas fa-trash'></i></button>";
+                if(Auth::user()->can('users.permissions.edit')){
+                    $action.="<a class='btn btn-xs btn-warning' id='btnEdit' href='".route('users.permissions.edit', $row->id)."'><i class='fas fa-edit'></i></a>"; 
+                }
+                if(Auth::user()->can('users.permissions.destroy')){
+                    $action.=" <button class='btn btn-xs btn-outline-danger' id='btnDel' data-id='".$row->id."'><i class='fas fa-trash'></i></button>";
+                }
                 return $action;
             })
             ->rawColumns(['chkBox', 'action']) // for prevent show html in action columns
