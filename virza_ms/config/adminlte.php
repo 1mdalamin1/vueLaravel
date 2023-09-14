@@ -330,6 +330,24 @@ return [
                 ],
             ],
         ],
+        ['header' => 'HR'],
+        [
+            'text' => 'Employee',
+            'icon' => 'fas fa-fw fa-users',
+            'submenu'  => [
+                [
+                    'text' => 'Manage Designation',
+                    'route' => 'hrm.designation',
+                    // 'url'   => 'hrm/designation',
+                    // 'active' => ['users', 'users/*'],
+                ],
+                [
+                    'text' => 'Manage Employee',
+                    'route' => 'users.permissions.index',
+                    // 'active' => ['users/permissions/*'],
+                ],
+            ],
+        ],
         [
             'text'        => 'pages',
             'url'         => 'admin/pages',
@@ -348,7 +366,7 @@ return [
             'url'  => 'settings',
             'icon' => 'fas fa-fw fa-cogs',
         ],
-        
+
         [
             'text' => 'test',
             'route' => 'test',

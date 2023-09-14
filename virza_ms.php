@@ -60,6 +60,29 @@ php artisan permission:generate
 php artisan db:seed
 
 
+
+
+
+
+
+
+
+
+
+
+
+9:25s | https://www.youtube.com/watch?v=SXY3KR1aRjc&list=PLbC4KRSNcMno2lP3Q7W3ZvS6NAeP6xut5&index=29
+
+php artisan make:migration create_designation_table
+php artisan make:controller Hrm/DesignationController -r
+php artisan make:model Designation
+
+php artisan route:list 
+
+
+
+
+
 */
 
 

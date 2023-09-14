@@ -2,9 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Hrm\DesignationController;
 use App\Http\Controllers\PermissionsController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\UsersController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,14 +29,25 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::group(['middleware' => ['auth', 'permission']], function(){
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');    
+
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::group(['prefix'=> 'users', 'as' => 'users.'], function(){
         Route::resource('permissions', PermissionsController::class);
         Route::resource('roles', RolesController::class);
-    });    
-    Route::resource('users', UsersController::class); 
+    });
+    Route::resource('users', UsersController::class);
 
-    
+
+    Route::group(['prefix'=> 'hrm', 'as' => 'hrm.'], function(){
+        Route::get('/designation', [DesignationController::class, 'index'])->name('designation');
+        Route::get('/designation/store', [DesignationController::class, 'store'])->name('store.designation');
+        // Route::resource('roles', RolesController::class);
+    });
+
+
+
+
+
     Route::get('test', function(){
         return "Permission Test with Sidebar";
     })->name('test');
@@ -46,6 +59,6 @@ Route::group(['middleware' => ['auth', 'permission']], function(){
         return "Route for superuser without assigning";
     })->name('test3');
 
-    
+
 });
 
