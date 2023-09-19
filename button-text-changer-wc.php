@@ -5,16 +5,33 @@
  * Description:       Button Text Changer in wooCommerce plugin will help you to put any custom text for wooCommerce button. It Designed, Developed, Maintained & Supported by vir-za Team.
  * Version:           1.0.0
  * Author:            1mdalamin1
- * Author URI:        https://www.fiverr.com/share/4Y1RVk
+ * Author URI:        https://bd.linkedin.com/in/1mdalamin1
  * License:           GPL v2 or later
  * License URI:       https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * Text Domain:       button-text-changer-wc
  */
 
 // Exit if accessed directly |
-if ( ! defined( 'ABSPATH' ) ) {
-    exit;
-}
+if ( ! defined( 'ABSPATH' ) ) { exit; }
+/**
+ * Checking if WooCommerce is active.
+ */
+if(!in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_option('active_plugins')))){return;}
+
+/*
+    $activated = false;
+    if ( function_exists( 'is_multisite' ) && is_multisite() ) {
+        include_once ABSPATH . 'wp-admin/includes/plugin.php';
+        if ( is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
+            $activated = true;
+        }
+    } else {
+        if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ), true ) ) {
+            $activated = true;
+        }
+    }
+*/
+
 include 'btcwc-settings.php';
 // Define  textDomain=button-text-changer-wc | prefix=btcwc_
 
@@ -102,28 +119,6 @@ function btcwc_empty_cart_button ( $default_text ) {
 }
 
 
-
-
-// function change_mini_cart_button_text( $label ) {
-//     $label = __( 'Custom View Cart', 'your-text-domain' );
-//     return $label;
-// }
-// add_filter( 'woocommerce_widget_cart_item_quantity', 'change_mini_cart_button_text' );
-
-
-/*
-// wooCommerce Add to cart btn 
-add_filter( 'woocommerce_product_add_to_cart_text', 'btcwc_change_add_to_cart_text' );
-add_filter( 'woocommerce_product_single_add_to_cart_text', 'btcwc_change_add_to_cart_text' );
-function btcwc_change_add_to_cart_text( $text ) {
-    // Modify the button text here
-    $addToCart = get_option( 'btcwc_fild_btcwc_add_to_cart' );
-    $text      = $addToCart ? $addToCart : 'Add to cart';
-
-    return $text;
-}
-*/
-
 // wooCommerce Add to cart btn 
 add_filter("woocommerce_product_add_to_cart_text","btcwc_change_add_to_cart_text", 10, 2);
 add_filter("woocommerce_product_single_add_to_cart_text","btcwc_change_add_to_cart_text", 10, 2);
@@ -154,5 +149,23 @@ function btcwc_change_add_to_cart_text($add_to_cart_text, $product){
 
 
 
+// function change_mini_cart_button_text( $label ) {
+//     $label = __( 'Custom View Cart', 'your-text-domain' );
+//     return $label;
+// }
+// add_filter( 'woocommerce_widget_cart_item_quantity', 'change_mini_cart_button_text' );
 
+
+/*
+    // wooCommerce Add to cart btn 
+    add_filter( 'woocommerce_product_add_to_cart_text', 'btcwc_change_add_to_cart_text' );
+    add_filter( 'woocommerce_product_single_add_to_cart_text', 'btcwc_change_add_to_cart_text' );
+    function btcwc_change_add_to_cart_text( $text ) {
+        // Modify the button text here
+        $addToCart = get_option( 'btcwc_fild_btcwc_add_to_cart' );
+        $text      = $addToCart ? $addToCart : 'Add to cart';
+
+        return $text;
+    }
+*/
 
