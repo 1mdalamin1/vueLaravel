@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Designation | Dashboard')
+@section('title', 'Depertment/Class | Dashboard')
 
 @section('content_header')
-    <h1>Designation</h1>
+    <h1>Depertment/Class</h1>
 @stop
 
 @section('content')
@@ -15,7 +15,7 @@
         </div>
         <div class="row">
             <div class="col-3">
-                <form action="{{route('users.permissions.store')}}" method="POST">
+                <form action="{{route('hrm.store.designation')}}" method="POST">
                     @csrf
                     <div class="card">
                         <div class="card-header">
@@ -25,11 +25,11 @@
                         </div>
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="name" class="form-label">Name <span class="text-danger">*</span></label>
-                                <input type="text" name="name" class="form-control" placeholder="Enter Permission Name" value="{{old('name')}}">
+                                <label for="designation_name" class="form-label">Depertment <span class="text-danger">*</span></label>
+                                <input type="text" name="designation_name" class="form-control" placeholder="Enter Depertment" value="{{old('designation_name')}}">
 
-                                @if($errors->has('name'))
-                                    <span class="text-danger">{{ $errors->first('name') }}</span>
+                                @if($errors->has('designation_name'))
+                                    <span class="text-danger">{{ $errors->first('designation_name') }}</span>
                                 @endif
                             </div>
                         </div>
@@ -43,7 +43,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title">
-                            <h5>Permissions list</h5>
+                            <h5>Depertment list</h5>
                         </div>
                     </div>
                     <div class="card-body">
@@ -51,15 +51,40 @@
                         <div class="table-responsive">
                             <table id="tableData" class="table table-bordered table-striped dataTable dtr-inline">
                                 <thead>
-                                    <tr>
-                                        <th>Id</th>
-                                        <th>Name</th>
+                                    @php
+                                    // dd($aa);
+                                    @endphp
+
+                                    @foreach ($aa as $item)
+
+
+                                    <tr >
+                                        <th>{{$item->id}}</th>
+                                        <th>{{$item->designation_name}}</th>
                                         <th>Guard</th>
-                                        <th>Action</th>
+                                        <th>
+
+
+
+                        @if(Auth::user()->can('users.permissions.edit'))
+                        <a class='btn btn-xs btn-warning' id='btnEdit' href='{{route("users.permissions.edit",$item->id )}}'><i class='fas fa-edit'></i></a>
+                    @endif
+                    @if(Auth::user()->can('users.permissions.destroy'))
+                        <button class='btn btn-xs btn-outline-danger' id='btnDel' data-id='{{$item->id}}'><i class='fas fa-trash'></i></button>
+                    @endif
+                </th>
                                     </tr>
+                                    @endforeach
                                 </thead>
                             </table>
                         </div>
+
+
+
+
+
+
+
 
                         <!-- Data table off -->
                     </div>
@@ -84,15 +109,17 @@
         $(document).ready(function(){
             let table = $('#tableData').DataTable({
                 responsive:true, processing:true, serverSide:true, autoWidth:false,
-                ajax:"{{route('users.permissions.index')}}",
+                ajax:"{{route('hrm.designation')}}",
                 columns:[
                     {data:'id', name:'id'},
-                    {data:'name', name:'name'},
+                    {data:'designation_name', name:'designation_name'},
                     {data:'guard_name', name:'guard_name'},
                     {data:'action', name:'action'},
                 ],
                 order:[[0,"desc"]]
             });
+
+        /*
             $('body').on('click', '#btnDel', function(){
                 //confirmation
                 let id = $(this).data("id");
@@ -114,7 +141,10 @@
                 }else{
                     // do nothing
                 }
+
             });
+        */
+
         });
     </script>
 @stop

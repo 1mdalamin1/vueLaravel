@@ -40,7 +40,7 @@ Route::group(['middleware' => ['auth', 'permission']], function(){
 
     Route::group(['prefix'=> 'hrm', 'as' => 'hrm.'], function(){
         Route::get('/designation', [DesignationController::class, 'index'])->name('designation');
-        Route::get('/designation/store', [DesignationController::class, 'store'])->name('store.designation');
+        Route::post('/designation/store', [DesignationController::class, 'store'])->name('store.designation');
         // Route::resource('roles', RolesController::class);
     });
 

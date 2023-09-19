@@ -28,7 +28,9 @@ class DesignationController extends Controller
         if($request->ajax()){
             return $this->getPermissions($request->role_id);
         }
-        return view('hrm.employee.designation.index');
+        $aa = DB::select('select * from designation ');
+        // dd($aa);
+        return view('hrm.employee.designation.index', compact('aa'));
     }
 
     /**
@@ -44,7 +46,20 @@ class DesignationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // validation
+        $this->validate($request, [
+            'designation_name' => 'required'
+        ]);
+        $depertment = Designation::create(["designation_name" => trim($request->designation_name)]);
+
+        if ($depertment) {
+            toast('New depertment added successfully!','success');
+            // return $this->index();
+            return view('hrm.employee.designation.index');
+        }
+        toast('Error on saving depertment!','error');
+
+        return back()->withInput();
     }
 
     /**
