@@ -1,7 +1,7 @@
 ﻿=== Button Text Changer WC ===
 Contributors: 1mdalamin1
 Donate link: https://www.fiverr.com/share/4Y1RVk
-Author URI: https://www.fiverr.com/share/4Y1RVk
+Author URI: https://bd.linkedin.com/in/1mdalamin1
 Plugin URI: https://wordpress.org/plugins/button-text-changer-wc/
 Tags: Add to Cart Text Changer and Customise Button, Button Text Changer WC, Add to Cart Text Changer, Add to Cart, checkout, woocommerce text, Apply coupon, Update Cart, cart, empty cart, Back to shop, Return to Shop.
 Requires at least: 5.2
