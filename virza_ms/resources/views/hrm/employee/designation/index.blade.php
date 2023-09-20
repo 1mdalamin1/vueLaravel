@@ -16,7 +16,6 @@
         <div class="row">
             <div class="col-3">
                 <form action="{{route('hrm.store.designation')}}" method="POST">
-                <form action="{{route('hrm.store.designation')}}" method="POST">
                     @csrf
                     <div class="card">
                         <div class="card-header">
@@ -28,9 +27,6 @@
                             <div class="form-group">
                                 <label for="name" class="form-label">Department/Class <span class="text-danger">*</span></label>
                                 <input type="text" name="designation_name" class="form-control" placeholder="Enter class Name" value="{{old('designation_name')}}">
-
-                                @if($errors->has('designation_name'))
-                                    <span class="text-danger">{{ $errors->first('designation_name') }}</span>
                                 @if($errors->has('designation_name'))
                                     <span class="text-danger">{{ $errors->first('designation_name') }}</span>
                                 @endif
@@ -59,17 +55,9 @@
                                         <th>Class Name</th>
                                         <th>Action</th>
                                     </tr>
-                                    @endforeach
                                 </thead>
                             </table>
                         </div>
-
-
-
-
-
-
-
 
                         <!-- Data table off -->
                     </div>
@@ -94,7 +82,6 @@
         $(document).ready(function(){
             let table = $('#tableDataClass').DataTable({
                 responsive:true, processing:true, serverSide:true, autoWidth:false,
-                ajax:"{{route('hrm.designation')}}",
                 ajax:"{{route('hrm.designation')}}",
                 columns:[
                     {data:'id', name:'id'},
@@ -123,7 +110,7 @@
                             $("#errorBox").html('<div class="alert alert-danger">'+res.message+'</div>')
                         },
                     });
-                }else{
+                } else {
                     // do nothing
                 }
 
@@ -133,4 +120,5 @@
     </script>
 @stop
 @section('plugins.Datatables', true)
+
 

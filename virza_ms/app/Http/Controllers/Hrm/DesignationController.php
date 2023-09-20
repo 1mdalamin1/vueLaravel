@@ -32,7 +32,7 @@ class DesignationController extends Controller
         }
         // $aa = DB::select('select * from designation ');
         // dd($aa);
-        return view('hrm.employee.designation.index', compact('aa'));
+        return view('hrm.employee.designation.index');
     }
 
     /**
