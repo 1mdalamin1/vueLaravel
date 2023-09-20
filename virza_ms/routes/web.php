@@ -40,7 +40,12 @@ Route::group(['middleware' => ['auth', 'permission']], function(){
 
     Route::group(['prefix'=> 'hrm', 'as' => 'hrm.'], function(){
         Route::get('/designation', [DesignationController::class, 'index'])->name('designation');
-        Route::get('/designation/store', [DesignationController::class, 'store'])->name('store.designation');
+        Route::post('/designation/store', [DesignationController::class, 'store'])->name('store.designation');
+        Route::delete('/designation/{id}', [DesignationController::class, 'destroy'])->name('destroy.designation');
+        Route::get('/designation/{id}/edit', [DesignationController::class, 'edit'])->name('edit.designation');
+        Route::put('/designation/{id}', [DesignationController::class, 'update'])->name('update.designation');
+
+
         // Route::resource('roles', RolesController::class);
     });
 
