@@ -30,7 +30,9 @@ class DesignationController extends Controller
         if($request->ajax()){
             return $this->getDepartment($request->role_id);
         }
-        return view('hrm.employee.designation.index');
+        // $aa = DB::select('select * from designation ');
+        // dd($aa);
+        return view('hrm.employee.designation.index', compact('aa'));
     }
 
     /**
@@ -46,6 +48,7 @@ class DesignationController extends Controller
      */
     public function store(Request $request)
     {
+        
         // validation 
         $this->validate($request, [
             'designation_name' => 'required'

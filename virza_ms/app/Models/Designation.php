@@ -13,3 +13,5 @@ class Designation extends Model
         'designation_name'
     ];
 }
+
+
