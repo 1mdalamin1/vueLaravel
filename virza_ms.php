@@ -74,11 +74,21 @@ php artisan db:seed
 
 
 
-9:25s | https://www.youtube.com/watch?v=xN1PeMf4kAM&list=PLbC4KRSNcMno2lP3Q7W3ZvS6NAeP6xut5&index=29&pp=iAQB
+9:25s | https://www.youtube.com/watch?v=vAx7ZFUVrSY&list=PLbC4KRSNcMno2lP3Q7W3ZvS6NAeP6xut5&index=31
 
 php artisan make:migration create_designation_table
 php artisan make:controller Hrm/DesignationController -r
 php artisan make:model Designation
+
+php artisan make:migration create_employees_table
+php artisan migrate
+php artisan make:controller Hrm/EmployeeController -r
+php artisan make:model Employee
+php artisan storage:link
+
+
+
+
 
 php artisan route:list 
 

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Hrm\DesignationController;
+use App\Http\Controllers\Hrm\EmployeeController;
 use App\Http\Controllers\PermissionsController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\UsersController;
@@ -38,6 +39,7 @@ Route::group(['middleware' => ['auth', 'permission']], function(){
     Route::resource('users', UsersController::class);
 
 
+    // Department routes
     Route::group(['prefix'=> 'hrm', 'as' => 'hrm.'], function(){
         Route::get('/designation', [DesignationController::class, 'index'])->name('designation');
         Route::post('/designation/store', [DesignationController::class, 'store'])->name('store.designation');
@@ -45,9 +47,27 @@ Route::group(['middleware' => ['auth', 'permission']], function(){
         Route::get('/designation/{id}/edit', [DesignationController::class, 'edit'])->name('edit.designation');
         Route::put('/designation/{id}', [DesignationController::class, 'update'])->name('update.designation');
 
+        // Employee routes
+        Route::get('/employee', [EmployeeController::class, 'index'])->name('employee');
+        Route::post('/employee/store', [EmployeeController::class, 'store'])->name('store.employee');
+        
+        Route::delete('/employee/{id}', [EmployeeController::class, 'destroy'])->name('destroy.employee');
+        Route::get('/employee/{id}/edit', [EmployeeController::class, 'edit'])->name('edit.employee');
+        Route::put('/employee/{id}', [EmployeeController::class, 'update'])->name('update.employee');
+
 
         // Route::resource('roles', RolesController::class);
     });
+
+    // Employee routes
+    // Route::group(['prefix'=> 'employee', 'as' => 'employee.'], function(){
+    //     Route::get('/designation', [DesignationController::class, 'index'])->name('designation');
+    //     Route::post('/designation/store', [DesignationController::class, 'store'])->name('store.designation');
+    //     Route::delete('/designation/{id}', [DesignationController::class, 'destroy'])->name('destroy.designation');
+    //     Route::get('/designation/{id}/edit', [DesignationController::class, 'edit'])->name('edit.designation');
+    //     Route::put('/designation/{id}', [DesignationController::class, 'update'])->name('update.designation');
+
+    // });
 
 
 

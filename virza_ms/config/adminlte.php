@@ -336,7 +336,7 @@ return [
             'icon' => 'fa fa-cubes',
             'submenu'  => [
                 [
-                    'text' => 'Manage Designation',
+                    'text' => 'Department/Class',
                     'route' => 'hrm.designation',
                     'icon' => 'fa fa-user-secret',
                     // 'url'   => 'hrm/designation',
@@ -344,7 +344,7 @@ return [
                 ],
                 [
                     'text' => 'Manage Employee',
-                    'route' => 'users.permissions.index',
+                    'route' => 'hrm.employee',
                     'icon' => 'fa fa-braille',
                     // 'active' => ['users/permissions/*'],
                 ],
