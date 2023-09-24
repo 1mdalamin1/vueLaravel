@@ -109,3 +109,32 @@ php artisan route:list
 
 
 ; ?>
+
+<form id="employeeForm" action="{{ route('hrm.store.employee') }}" method="POST" enctype="multipart/form-data">
+    <!-- Your form content here -->
+</form>
+
+<script>
+    document.getElementById('employeeForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        var formData = new FormData(this); // Get form data
+        var url = this.action; // Get the form action URL
+
+        // Send an Ajax request
+        fetch(url, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            }
+        })
+        .then(response => response.json()) // Assuming the server returns JSON
+        .then(data => {
+            console.log(data); // Handle the response data
+            // You can do something with the response here (e.g., show a success message)
+        })
+        .catch(error => console.error('Error:', error));
+    });
+</script>
+

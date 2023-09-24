@@ -129,9 +129,14 @@ class EmployeeController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $employee = Employee::findOrFail($id);
+    
+        return view('hrm.employees.edit', compact('employee'))->with([
+            "users" => User::get(),
+            "depertments" => Designation::get()
+        ]);
     }
 
     /**
@@ -156,14 +161,15 @@ class EmployeeController extends Controller
             'status' => 'required',
         ]);
 
-        $filePath="images/a.png";
+        
         if ($request->hasFile('image')) {
             // delete image
             Storage::disk('public')->delete($employee->image);
 
             $filePath = Storage::disk('public')->put('images/employee', request()->file('image'), 'public');
-            // $filePath = Storage::disk('public')->put('images/employee', request()->file('image'));
             // $validated['image'] = $filePath;
+        } else {
+            $filePath = $employee->image;
         }
 
         $depertmentUpdate = $employee->update([
