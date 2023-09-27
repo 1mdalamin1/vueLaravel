@@ -36,13 +36,13 @@
                         <div class="card-header">
                             <div class="card-title">
                                 <h5>Add New</h5>
-                                
+
                             </div>
                         </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-6">
-                                            
+
                                     <div class="form-group">
                                         <label for="employee_id" class="form-label">Employee Id<span class="text-danger">*</span></label>
                                         <input type="text" name="employee_id" class="form-control" placeholder="Ex: e-123" value="{{old('employee_id')}}">
@@ -50,7 +50,7 @@
                                             <span class="text-danger">{{ $errors->first('employee_id') }}</span>
                                         @endif
                                     </div>
-                                    
+
                                     <div class="form-group">
                                         <label for="user_id" class="form-label">Name</label>
                                         <select class="form-control multiple-not " id="user_id" data-placeholder="Select a department" name="user_id">
@@ -75,7 +75,7 @@
                                     <div class="form-group">
                                         <label for="image" class="form-label">image<span class="text-danger">*</span></label>
                                         <input type="file" id="image" name="image" class="form-control" placeholder="Ex: e-123" value="{{old('image')}}">
-                                        
+
 
                                         @if($errors->has('image'))
                                             <span class="text-danger">{{ $errors->first('image') }}</span>
@@ -124,9 +124,9 @@
                                     </div>
 
                                 </div>
-                                <!--  End left side  --> 
+                                <!--  End left side  -->
                                 <div class="col-6">
-                                    
+
                                     <div class="form-group">
                                         <label for="phone" class="form-label">Phone<span class="text-danger">*</span></label>
                                         <input type="text" name="phone" id="phone" class="form-control" placeholder="01795xxxxxx" value="{{old('phone')}}">
@@ -141,7 +141,7 @@
                                             <span class="text-danger">{{ $errors->first('nid') }}</span>
                                         @endif
                                     </div>
-                                    
+
                                     <div class="form-group">
                                         <label for="salary" class="form-label">Salary<span class="text-danger">*</span></label>
                                         <input type="text" id="salary" name="salary" class="form-control" placeholder="Ex: e-123" value="{{old('salary')}}">
@@ -149,7 +149,7 @@
                                             <span class="text-danger">{{ $errors->first('salary') }}</span>
                                         @endif
                                     </div>
-                                    
+
                                     <div class="form-group">
                                         <label for="status" class="form-label">Status<span class="text-danger">*</span></label>
                                         <select class="form-control multiple-not " id="status" data-placeholder="Select a status" name="status">
@@ -161,7 +161,7 @@
                                 </div>
                                 <!-- End Right side side  -->
                             </div>
-                                
+
                             <div class="form-group">
                                 <label for="address" class="form-label">Address<span class="text-danger">*</span></label>
                                 <input type="text" name="address" class="form-control" placeholder="Ex: e-123" value="{{old('address')}}">
@@ -178,7 +178,7 @@
                 </form>
             </div>
             <div class="col-3"></div>
-            
+
         </div>
 
 
@@ -243,15 +243,15 @@
         });
 
         $(document).ready(function(){
-            
+
             // Add an event listener for form submission
             $('form').on('submit', function(event){
                 event.preventDefault(); // Prevent default form submission
-                
+
                 // Serialize the form data
                 // var formData = $(this).serialize();
                 var formData = new FormData(this); // Create a FormData object to handle file uploads
-                
+
                 // Send an AJAX request
                 $.ajax({
                     url: $(this).attr('action'), // Use the form's action attribute
@@ -268,14 +268,16 @@
                         // Handle the error response if needed
                         let errorMessage = xhr.responseText;
                         let errorJson = JSON.parse(xhr.responseText);
-                        console.log(errorJson.errors);
+                        
+                        let htmlErrors = '';
+
+                        for (let key in  errorJson.errors) {
+                            htmlErrors += `<p>${errorJson.errors[key]}</p>`;
+                        }
+
                         $("#errorBox").html(`<div class="alert alert-danger">
-                        <h3>${errorJson.message}</h3>`+
-                            errorJson.errors.forEach(function(error) {
-                                `<p>${error[0]}</p>`;
-                            })+
-                            
-                        `</div>`);
+                        <h3>${errorJson.message}</h3>${htmlErrors}
+                        </div>`);
 
                     }
                 });
@@ -322,8 +324,8 @@
                 }
 
             });
-           
-            
+
+
         });
     </script>
 @stop
