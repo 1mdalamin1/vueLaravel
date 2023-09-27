@@ -506,6 +506,22 @@ return [
                 ],
             ],
         ],
+        'Parsley' => [
+            'active' => false,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '//cdnjs.cloudflare.com/ajax/libs/parsley.js/2.9.2/parsley.min.js',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => false,
+                    'location' => '//cdn.jsdelivr.net/gh/guillaumepotier/Parsley.js@2.9.2/src/parsley.css',
+                ],
+            ],
+        ],
+
         'Chartjs' => [
             'active' => false,
             'files' => [
@@ -526,6 +542,7 @@ return [
                 ],
             ],
         ],
+        
         'Pace' => [
             'active' => false,
             'files' => [

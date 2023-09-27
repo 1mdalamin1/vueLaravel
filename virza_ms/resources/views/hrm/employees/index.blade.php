@@ -30,7 +30,7 @@
         <div class="row">
             <div class="col-3"></div>
             <div class="col-6">
-                <form action="{{route('hrm.store.employee')}}" method="POST" enctype="multipart/form-data">
+                <form id="employeeAddForm" data-parsley-validate action="{{route('hrm.store.employee')}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="card">
                         <div class="card-header">
@@ -45,7 +45,7 @@
 
                                     <div class="form-group">
                                         <label for="employee_id" class="form-label">Employee Id<span class="text-danger">*</span></label>
-                                        <input type="text" name="employee_id" class="form-control" placeholder="Ex: e-123" value="{{old('employee_id')}}">
+                                        <input required data-parsley-required-message="Employee Id is required" type="text" name="employee_id" class="form-control" placeholder="Ex: e-123" value="{{old('employee_id')}}" >
                                         @if($errors->has('employee_id'))
                                             <span class="text-danger">{{ $errors->first('employee_id') }}</span>
                                         @endif
@@ -95,21 +95,21 @@
 
                                     <div class="form-group">
                                         <label for="blood" class="form-label">Blood Group<span class="text-danger">*</span></label>
-                                        <input type="text" id="blood" name="blood" class="form-control" placeholder="Ex: e-123" value="{{old('blood')}}">
+                                        <input required type="text" id="blood" name="blood" class="form-control" placeholder="Ex: e-123" value="{{old('blood')}}">
                                         @if($errors->has('blood'))
                                             <span class="text-danger">{{ $errors->first('blood') }}</span>
                                         @endif
                                     </div>
                                     <div class="form-group">
                                         <label for="joining_date" class="form-label">Joining date<span class="text-danger">*</span></label>
-                                        <input type="date" id="joining_date" name="joining_date" class="form-control" placeholder="Ex: e-123" value="{{old('joining_date')}}">
+                                        <input required type="date" id="joining_date" name="joining_date" class="form-control" placeholder="Ex: e-123" value="{{old('joining_date')}}">
                                         @if($errors->has('joining_date'))
                                             <span class="text-danger">{{ $errors->first('joining_date') }}</span>
                                         @endif
                                     </div>
                                     <div class="form-group">
                                         <label for="dob" class="form-label">Date of barth<span class="text-danger">*</span></label>
-                                        <input type="date" id="dob" name="dob" class="form-control" placeholder="Ex: e-123" value="{{old('dob')}}">
+                                        <input required type="date" id="dob" name="dob" class="form-control" placeholder="Ex: e-123" value="{{old('dob')}}">
                                         @if($errors->has('dob'))
                                             <span class="text-danger">{{ $errors->first('dob') }}</span>
                                         @endif
@@ -129,7 +129,7 @@
 
                                     <div class="form-group">
                                         <label for="phone" class="form-label">Phone<span class="text-danger">*</span></label>
-                                        <input type="text" name="phone" id="phone" class="form-control" placeholder="01795xxxxxx" value="{{old('phone')}}">
+                                        <input type="text" name="phone" id="phone" class="form-control" placeholder="01795xxxxxx" value="{{old('phone')}}" required data-parsley-type="number" data-parsley-type-message="Please enter a valid number address" data-parsley-error-message="Invalid number address">
                                         @if($errors->has('phone'))
                                             <span class="text-danger">{{ $errors->first('phone') }}</span>
                                         @endif
@@ -181,8 +181,6 @@
 
         </div>
 
-
-
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -222,6 +220,8 @@
 @stop
 
 @section('js')
+    <!-- <script src="node_modules/parsleyjs/dist/parsley.min.js"></script>  -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.9.2/parsley.js" integrity="sha512-Fq/wHuMI7AraoOK+juE5oYILKvSPe6GC5ZWZnvpOO/ZPdtyA29n+a5kVLP4XaLyDy9D1IBPYzdFycO33Ijd0Pg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
     <script>
         // create onchange event listener for image input
         document.getElementById('image').onchange = function(evt) {
@@ -231,6 +231,7 @@
                 document.getElementById('employee_image_preview').src = URL.createObjectURL(file)
             }
         }
+        
 
         $(function (){
             $('#department_id, #user_id').select2();
@@ -243,6 +244,8 @@
         });
 
         $(document).ready(function(){
+
+            $('#employeeAddForm').parsley();
 
             // Add an event listener for form submission
             $('form').on('submit', function(event){
@@ -331,5 +334,6 @@
 @stop
 @section('plugins.Datatables', true)
 @section('plugins.Select2', true)
+@section('plugins.Parsley', true)
 
 
