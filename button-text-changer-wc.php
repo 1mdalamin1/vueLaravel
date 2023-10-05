@@ -61,19 +61,19 @@ function btcwc_enqueue_scripts(){
 add_filter( 'woocommerce_account_menu_items', 'btcwc_my_account_menu_order_label', 999 );
 function btcwc_my_account_menu_order_label( $items ) {
 
-    $dashboard = get_option('btcwc_account_dashboard_text') ? get_option('btcwc_account_dashboard_text') :'Dashboard';
-    $orders = get_option('btcwc_account_orders_text') ? get_option('btcwc_account_orders_text') :'Orders';
-    $download = get_option('btcwc_account_downloads_text') ? get_option('btcwc_account_downloads_text') :'Download';
-    $address = get_option('btcwc_account_address_text') ? get_option('btcwc_account_address_text') :'Address';
-    $account = get_option('btcwc_account_details_text') ? get_option('btcwc_account_details_text') :'Account details';
-    $logout = get_option('btcwc_account_log_out_text') ? get_option('btcwc_account_log_out_text') :'Log out';
+    $dashboard = get_option('btcwc_account_dashboard_text') ? get_option('btcwc_account_dashboard_text') :__( 'Dashboard', 'button-text-changer-wc' );
+    $orders = get_option('btcwc_account_orders_text') ? get_option('btcwc_account_orders_text') :__( 'Orders', 'button-text-changer-wc' );
+    $download = get_option('btcwc_account_downloads_text') ? get_option('btcwc_account_downloads_text') :__( 'Download', 'button-text-changer-wc' );
+    $address = get_option('btcwc_account_address_text') ? get_option('btcwc_account_address_text') :__( 'Address', 'button-text-changer-wc' );
+    $account = get_option('btcwc_account_details_text') ? get_option('btcwc_account_details_text') :__( 'Account details', 'button-text-changer-wc' );
+    $logout = get_option('btcwc_account_log_out_text') ? get_option('btcwc_account_log_out_text') :__( 'Log out', 'button-text-changer-wc' );
 
-    $items['dashboard'] = __( $dashboard, 'button-text-changer-wc' );
-    $items['orders'] = __( $orders, 'button-text-changer-wc' );
-    $items['downloads'] = __( $download, 'button-text-changer-wc' );
-    $items['edit-address'] = __( $address, 'button-text-changer-wc' );
-    $items['edit-account'] = __( $account, 'button-text-changer-wc' );
-    $items['customer-logout'] = __( $logout, 'button-text-changer-wc' );
+    $items['dashboard'] = $dashboard;
+    $items['orders'] = $orders;
+    $items['downloads'] = $download;
+    $items['edit-address'] = $address;
+    $items['edit-account'] = $account;
+    $items['customer-logout'] = $logout;
 
     return $items;
 }
@@ -105,16 +105,16 @@ function btcwc_button_checkout_texts() {
 
 add_filter( 'woocommerce_order_button_text', 'btcwc_order_button_text' ); 
 function btcwc_order_button_text() {
-    $sCheckout = get_option('btcwc_order_btn_text') ? get_option('btcwc_order_btn_text') :'Place order';
-    return __( $sCheckout, 'button-text-changer-wc' ); 
+    $sCheckout = get_option('btcwc_order_btn_text') ? get_option('btcwc_order_btn_text') : __( 'Place order', 'button-text-changer-wc' );
+    return $sCheckout; 
 }
 
 // Empty cart button
 add_filter( 'woocommerce_return_to_shop_text', 'btcwc_empty_cart_button', 10, 1 );
 function btcwc_empty_cart_button ( $default_text ) {
-    $goToShop = get_option('btcwc_back_to_shop_btn_text') ? get_option('btcwc_back_to_shop_btn_text') :'Return to Shop';
+    $goToShop = get_option('btcwc_back_to_shop_btn_text') ? get_option('btcwc_back_to_shop_btn_text') :__( 'Return to Shop', 'button-text-changer-wc' );
 
-    $default_text = __( $goToShop, 'button-text-changer-wc' );
+    $default_text = $goToShop;
     return $default_text;
 }
 
@@ -131,17 +131,18 @@ function btcwc_change_add_to_cart_text($add_to_cart_text, $product){
     if( $product_type == "variable" && is_shop()){
 
         $variable_btn_text= get_option("btcwc_variable_add_to_cart");
-        $add_to_cart_text = $variable_btn_text ? $variable_btn_text : 'View products';
+        // __( 'Orders', 'button-text-changer-wc' );
+        $add_to_cart_text = $variable_btn_text ? $variable_btn_text :  __( 'View products', 'button-text-changer-wc' );
         
     }else if( $product_type == "group"){
 
         $group_btn_text   = get_option("btcwc_group_product_add_to_cart");
-        $add_to_cart_text = $group_btn_text ? $group_btn_text : 'View Group products';
+        $add_to_cart_text = $group_btn_text ? $group_btn_text :  __( 'View Group products', 'button-text-changer-wc' );
 
     }else if( $product_type == "simple" ){
 
         $addToCart        = get_option( 'btcwc_fild_btcwc_add_to_cart' );
-        $add_to_cart_text = $addToCart ? $addToCart : 'Add to cart';;
+        $add_to_cart_text = $addToCart ? $addToCart :  __( 'Add to cart', 'button-text-changer-wc' );
     }
     
     return $add_to_cart_text;

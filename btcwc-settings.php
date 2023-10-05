@@ -9,16 +9,16 @@ function btcwc_add_fild($settings_tab) {
 // add new fild in wc setting
 add_action('woocommerce_settings_tabs_btcwc_fild', 'btcwc_add_fild_settings');
 function btcwc_add_fild_settings() {
-    woocommerce_admin_fields(get_btcwc_fild_settings());
+    woocommerce_admin_fields(btcwc_get_fild_settings());
 }
 
 // upload data in option table
 add_action('woocommerce_update_options_btcwc_fild', 'btcwc_update_options_fild_settings');
 function btcwc_update_options_fild_settings() {
-    woocommerce_update_options(get_btcwc_fild_settings());
+    woocommerce_update_options(btcwc_get_fild_settings());
 }
 
-function get_btcwc_fild_settings() {
+function btcwc_get_fild_settings() {
     $settings = array(
         'section_title' => array(
             'id' => 'btcwc_fild_settings_title',
