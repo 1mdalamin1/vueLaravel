@@ -1,4 +1,5 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly 
 # textDomain=button-text-changer-wc | prefix=btcwc_
 add_filter('woocommerce_settings_tabs_array', 'btcwc_add_fild', 50);
 function btcwc_add_fild($settings_tab) {
