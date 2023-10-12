@@ -89,11 +89,11 @@ function btcwc_default_remove_proceed_to_checkout_button() {
 // cart page Proceed to checkout button text cheange 
 add_filter( 'woocommerce_proceed_to_checkout', 'btcwc_button_checkout_texts',20);
 function btcwc_button_checkout_texts() { 
-    $pCheckout = get_option('btcwc_checkout_btn_text') ? get_option('btcwc_checkout_btn_text') :'Proceed to checkout';
+     $pCheckout = get_option('btcwc_checkout_btn_text') ? get_option('btcwc_checkout_btn_text') : __( 'Proceed to checkout', 'button-text-changer-wc' );
     ?> 
     <a href="<?php echo esc_url( wc_get_checkout_url() ); ?>" 
     class="checkout-button button alt wc-forward<?php echo esc_attr( wc_wp_theme_get_element_class_name( 'button' ) ? ' ' . wc_wp_theme_get_element_class_name( 'button' ) : '' ); ?>">
-        <?php esc_html_e( $pCheckout, 'button-text-changer-wc' ); ?>
+        <?php echo $pCheckout; ?>
     </a>
 
     <?php
