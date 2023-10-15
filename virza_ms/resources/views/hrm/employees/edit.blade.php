@@ -4,8 +4,8 @@
 @section('title', 'Update Employee | Dashboard')
 
 @section('content_header')
-    <h1>Update Employee</h1>
-@stop
+    <!-- <p></p> -->
+@stop 
 
 @section('content')
     <div class="container-fluid">
@@ -15,7 +15,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-6">
+            <div class="col-12">
 
                 <form action="{{route('hrm.update.employee', $employee->id)}}" method="POST" enctype="multipart/form-data">
                     
@@ -25,12 +25,13 @@
                         <div class="card-header">
                             <div class="card-title">
                                 <h5>Update Employee</h5>
+                                <a href="{{route('hrm.employee')}}"><<==<< Go Back</a>
                             </div>
                         </div>
                         <div class="card-body">
                             
-                        <div class="row">
-                                <div class="col-6">
+                            <div class="row">
+                                <div class="col-md-3">
                                             
                                     <div class="form-group">
                                         <label for="employee_id" class="form-label">Employee Id<span class="text-danger">*</span></label>
@@ -56,29 +57,20 @@
                                         @endforeach
                                         </select>
                                     </div>
-
-                                </div>
-                                <!-- End left side  -->
-                                <div class="col-6">
-
+                                    
                                     <div class="form-group">
-                                        <label for="image" class="form-label">Image </label>
-                                        <input type="file" id="image" name="image" class="form-control" value="{{$employee->image}}">
-                                        @if($errors->has('image'))
-                                            <span class="text-danger">{{ $errors->first('image') }}</span>
+                                        <label for="address" class="form-label">Address<span class="text-danger">*</span></label>
+                                        <input type="text" name="address" class="form-control" placeholder="Ex: e-123" value="{{$employee->address}}">
+                                        @if($errors->has('address'))
+                                            <span class="text-danger">{{ $errors->first('address') }}</span>
                                         @endif
                                     </div>
 
-                                        <img id="employee_image_preview" class="h-64 w-128 object-cover rounded-md" src="{{ $employee->image ? Storage::url($employee->image) : 'http://localhost:8000/vendor/adminlte/dist/img/vir-za_fb.png' }}" alt="Employee image" />
-                                       
-                                    <!-- {{ session('imagePath') }} -->
 
                                 </div>
-                                <!-- End Right side side  -->
-                            </div>
-
-                            <div class="row">
-                                <div class="col-6">
+                                <!-- End 1st side  -->
+                            
+                                <div class="col-md-3">
 
                                     <div class="form-group">
                                         <label for="blood" class="form-label">Blood Group<span class="text-danger">*</span></label>
@@ -111,8 +103,8 @@
                                     </div>
 
                                 </div>
-                                <!--  End left side  --> 
-                                <div class="col-6">
+                                <!--  End 3rd side  --> 
+                                <div class="col-md-3">
                                     
                                     <div class="form-group">
                                         <label for="phone" class="form-label">Phone<span class="text-danger">*</span></label>
@@ -146,16 +138,25 @@
                                     </div>
 
                                 </div>
-                                <!-- End Right side side  -->
+                                <!-- End 4th side  -->
+                                <div class="col-md-3">
+
+                                <div class="form-group">
+                                    <label for="image" class="form-label">Image </label>
+                                    <input type="file" id="image" name="image" class="form-control" value="{{$employee->image}}">
+                                    @if($errors->has('image'))
+                                        <span class="text-danger">{{ $errors->first('image') }}</span>
+                                    @endif
+                                </div>
+
+                                    <img id="employee_image_preview" class="h-64 w-128 object-cover rounded-md" src="{{ $employee->image ? Storage::url($employee->image) : 'http://localhost:8000/vendor/adminlte/dist/img/vir-za_fb.png' }}" alt="Employee image"  width="200" />
+                                
+                                <!-- {{ session('imagePath') }} -->
+
+                                </div>
+                                <!-- End 2nd side  -->
                             </div>
                                 
-                            <div class="form-group">
-                                <label for="address" class="form-label">Address<span class="text-danger">*</span></label>
-                                <input type="text" name="address" class="form-control" placeholder="Ex: e-123" value="{{$employee->address}}">
-                                @if($errors->has('address'))
-                                    <span class="text-danger">{{ $errors->first('address') }}</span>
-                                @endif
-                            </div>
 
 
 

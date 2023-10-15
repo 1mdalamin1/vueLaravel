@@ -338,15 +338,23 @@ return [
                 [
                     'text' => 'Department/Class',
                     'route' => 'hrm.designation',
+                    'icon_color' => 'red',
                     'icon' => 'fa fa-user-secret',
                     // 'url'   => 'hrm/designation',
-                    // 'active' => ['users', 'users/*'],
+                    'active' => ['hrm', 'hrm/*'],
                 ],
                 [
                     'text' => 'Manage Employee',
                     'route' => 'hrm.employee',
                     'icon' => 'fa fa-braille',
-                    // 'active' => ['users/permissions/*'],
+                    'icon_color' => 'cyan',
+                    'active' => ['hrm/employee/*'],
+                ],
+                [
+                    'text' => 'Add Employee',
+                    'route' => 'hrm.add.employee',
+                    'icon' => 'fa fa-user-plus',
+                    'active' => ['hrm/employee/add'],
                 ],
             ],
         ],
@@ -417,22 +425,15 @@ return [
                 ],
             ],
         ],
-        ['header' => 'labels'],
+        ['header' => 'Institutions'],
         [
-            'text'       => 'important',
+            'text'       => 'Schoole',
             'icon_color' => 'red',
-            'url'        => '#',
+            'route' => 'ins.institutes',
+            'icon' => 'fa fa-university',
+            'active' => ['ins/employee/add'],
         ],
-        [
-            'text'       => 'warning',
-            'icon_color' => 'yellow',
-            'url'        => '#',
-        ],
-        [
-            'text'       => 'information',
-            'icon_color' => 'cyan',
-            'url'        => '#',
-        ],
+        
     ],
 
     /*

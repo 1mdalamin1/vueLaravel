@@ -33,10 +33,10 @@ class EmployeeController extends Controller
         {
             return $this->getEmployees(); // $request->role_id
         }
-        
-    //    dd($request);
-    //    return redirect()->route('hrm.employee')->with('success', 'Employee added successfully')->with('imagePath', $request);
-    // {{ session('imagePath') }} // use this in blade.php
+            
+        //    dd($request);
+        //    return redirect()->route('hrm.employee')->with('success', 'Employee added successfully')->with('imagePath', $request);
+        // {{ session('imagePath') }} // use this in blade.php
 
         return view('hrm.employees.index')->with([
             "users" => User::get(),
@@ -48,9 +48,17 @@ class EmployeeController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        //
+    public function create(Request $request)
+    {     
+        // if($request->ajax())
+        // {
+        //     return $this->getEmployees(); // $request->role_id
+        // }
+
+        return view('hrm.employees.add')->with([
+            "users" => User::get(),
+            "depertments" => Designation::get()
+        ]);
     }
 
     /**
@@ -60,7 +68,7 @@ class EmployeeController extends Controller
     {
         
         // validation 
-        $this->validate($request, [
+        $validated=$this->validate($request, [
             'employee_id' => 'required',
             'user_id' => 'required',
             'department_id' => 'required',
@@ -82,31 +90,26 @@ class EmployeeController extends Controller
             //    $validated['image'] = $filePath;
         }
 
-        //    dd($request);
-        //    return redirect()->route('hrm.employee')->with('success', 'Employee added successfully')->with('imagePath', $request);
-        // {{ session('imagePath') }} // use this in blade.php
-
-
-        // exit();
-       
-        $addEmployees = Employee::create([
-            'employee_id' => strtolower(trim($request->employee_id)),
-            'user_id' => trim($request->user_id),
-            'department_id' => trim($request->department_id),
-            'phone' => trim($request->phone),
-            'address' => trim($request->address),
-            'gender' => trim($request->gender),
-            'blood' => trim($request->blood),
-            'nid' => trim($request->nid),
-            'image' => $filePath,
-            'dob' => trim($request->dob),
-            'joining_date' => trim($request->joining_date),
-            'salary' => trim($request->salary),
-            'created_at_id' => $currentUserId,
-            'updateted_at_id' => $currentUserId,
-            'institute_id' => 11,
-            'status' => trim($request->status)
-        ]);
+        if($validated){
+            $addEmployees = Employee::create([
+                'employee_id' => strtolower(trim($request->employee_id)),
+                'user_id' => trim($request->user_id),
+                'department_id' => trim($request->department_id),
+                'phone' => trim($request->phone),
+                'address' => trim($request->address),
+                'gender' => trim($request->gender),
+                'blood' => trim($request->blood),
+                'nid' => trim($request->nid),
+                'image' => $filePath,
+                'dob' => trim($request->dob),
+                'joining_date' => trim($request->joining_date),
+                'salary' => trim($request->salary),
+                'created_at_id' => $currentUserId,
+                'updateted_at_id' => $currentUserId,
+                'institute_id' => 11,
+                'status' => trim($request->status)
+            ]);
+        }
         
         if ($addEmployees) {
             toast('New Employee added successfully!','success');

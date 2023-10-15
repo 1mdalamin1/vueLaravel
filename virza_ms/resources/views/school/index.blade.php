@@ -1,10 +1,10 @@
 @extends('adminlte::page')
 
-@section('title', 'Employee | Dashboard')
+@section('title', 'Institutes | Dashboard')
 
 @section('content_header')
     <div class="d-flex justify-content-between flex-wrap">
-        <h1>Employee list</h1>
+        <h1>Institutes list</h1>
                 
         <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="10000">
             <button type="button" class="ml-2 mb-1 mr-1 close text-danger" data-dismiss="toast" aria-label="Close">
@@ -30,38 +30,35 @@
             <div class="modal-content">
             
                 <div class="modal-header">
-                <h4 class="modal-title">Add New Employee</h4>
+                <h4 class="modal-title">Add New School</h4>
                 <button type="button" class="close text-danger" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
                     <!-- <div class="row">
                         <div class="col-12">
-                            <div id="errorEmployeeFromBox"></div>
+                            <div id="errorInstitutesFromBox"></div>
                         </div>
                     </div> -->
-                <form id="employeeAddForm" data-parsley-validate action="{{route('hrm.store.employee')}}" method="POST" enctype="multipart/form-data">
+                <form id="institutesAddForm" data-parsley-validate action="{{route('ins.store.institutes')}}" method="POST" enctype="multipart/form-data">
                 @csrf 
                     <div class="row">
                         <div class="col-6">
-                                    
+                                                                
                             <div class="form-group">
-                                <label for="employee_id" class="form-label">Employee Id<span class="text-danger">*</span></label>
-                                <input required data-parsley-required-message="Employee Id is required" type="text" name="employee_id" class="form-control" placeholder="Ex: e-123" value="{{old('employee_id')}}">
+                                <label for="institutes_name" class="form-label">Institutes name<span class="text-danger">*</span></label>
+                                <input required data-parsley-required-message="Institutes name is required" type="text" name="name" class="form-control" placeholder="School name" value="{{old('name')}}">
+                            </div>
+                                                                
+                            <div class="form-group">
+                                <label for="address" class="form-label">Address<span class="text-danger">*</span></label>
+                                <input required data-parsley-required-message="address is required" type="text" name="address" class="form-control" placeholder="School address" value="{{old('address')}}">
                             </div>
                             
                             <div class="form-group">
-                                <label for="user_id" class="form-label">Name</label>
-                                <select class="form-control multiple-not " id="user_id" data-placeholder="Select a department" name="user_id">
+                                <label for="user_id" class="form-label">Head sir Name</label>
+                                <select class="form-control multiple-not " id="user_id" data-placeholder="Select a user name" name="user_id">
                                 @foreach ($users as $role)
                                     <option value="{{$role->id}}">{{$role->name}}</option>
-                                @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="department_id" class="form-label">Depertments</label>
-                                <select class="form-control multiple-not " id="department_id" data-placeholder="Select a department" name="department_id">
-                                @foreach ($depertments as $role)
-                                    <option value="{{$role->id}}">{{$role->designation_name}}</option>
                                 @endforeach
                                 </select>
                             </div>
@@ -71,10 +68,10 @@
                         <div class="col-6">
 
                             <div class="form-group">
-                                <label for="image" class="form-label">image<span class="text-danger">*</span></label>
+                                <label for="image" class="form-label">Head sir image<span class="text-danger">*</span></label>
                                 <input type="file" id="image" name="image" class="form-control" placeholder="Ex: e-123" value="{{old('image')}}">
                             </div>
-                            <img id="employee_image_preview" class="h-64 w-128 object-cover rounded-md" src="{{ old('image') ? Storage::url(old('image')) : '' }}" alt="Employee image preview" width="200" />
+                            <img id="institutes_image_preview" class="h-64 w-128 object-cover rounded-md" src="{{ old('image') ? Storage::url(old('image')) : '' }}" alt="Institutes image preview" width="200" />
 
                         </div>
                         <!-- End Right side side  -->
@@ -82,26 +79,22 @@
 
                     <div class="row">
                         <div class="col-6">
+                            <div class="form-group">
+                                <label for="signature" class="form-label">Head sir signature<span class="text-danger">*</span></label>
+                                <input type="file" id="signature" name="signature" class="form-control" placeholder="Ex: e-123" value="{{old('signature')}}">
+                            </div>
+                            <div class="form-group">
+                                <label for="logo" class="form-label">Logo<span class="text-danger">*</span></label>
+                                <input type="file" id="logo" name="logo" class="form-control" placeholder="Ex: e-123" value="{{old('logo')}}">
+                            </div>
 
                             <div class="form-group">
-                                <label for="blood" class="form-label">Blood Group<span class="text-danger">*</span></label>
-                                <input required type="text" id="blood" name="blood" class="form-control" placeholder="Ex: e-123" value="{{old('blood')}}">
+                                <label for="expiry_date" class="form-label">Expiry date<span class="text-danger">*</span></label>
+                                <input required type="datetime-local" id="expiry_date" name="expiry_date" class="form-control" value="{{old('expiry_date')}}">
                             </div>
                             <div class="form-group">
-                                <label for="joining_date" class="form-label">Joining date<span class="text-danger">*</span></label>
-                                <input required type="date" id="joining_date" name="joining_date" class="form-control" placeholder="Ex: e-123" value="{{old('joining_date')}}">
-                            </div>
-                            <div class="form-group">
-                                <label for="dob" class="form-label">Date of barth<span class="text-danger">*</span></label>
-                                <input type="date" id="dob" name="dob" class="form-control" placeholder="Ex: e-123" value="{{old('dob')}}">
-                            </div>
-                            <div class="form-group">
-                                <label for="gender" class="form-label">Gender<span class="text-danger">*</span></label>
-                                <select class="form-control multiple-not " id="gender" data-placeholder="Select a gender" name="gender">
-                                    <option value="Male">Male</option>
-                                    <option value="Female">Female</option>
-                                    <option value="Other">Other</option>
-                                </select>
+                                <label for="limit" class="form-label">Limit No:<span class="text-danger">*</span></label>
+                                <input type="number" id="limit" name="limit" class="form-control" placeholder="Ex: 123" value="{{old('limit')}}">
                             </div>
 
                         </div>
@@ -115,15 +108,7 @@
                                     <span class="text-danger">{{ $errors->first('phone') }}</span>
                                 @endif
                             </div>
-                            <div class="form-group">
-                                <label for="nid" class="form-label">NID No:<span class="text-danger">*</span></label>
-                                <input type="text" id="nid" name="nid" class="form-control" placeholder="Ex: e-123" value="{{old('nid')}}">
-                            </div>
                             
-                            <div class="form-group">
-                                <label for="salary" class="form-label">Salary<span class="text-danger">*</span></label>
-                                <input type="text" id="salary" name="salary" class="form-control" placeholder="Ex: e-123" value="{{old('salary')}}">
-                            </div>
                             
                             <div class="form-group">
                                 <label for="status" class="form-label">Status<span class="text-danger">*</span></label>
@@ -138,10 +123,10 @@
                     </div>
                         
                     <div class="form-group">
-                        <label for="address" class="form-label">Address<span class="text-danger">*</span></label>
-                        <input type="text" name="address" class="form-control" placeholder="Ex: e-123" value="{{old('address')}}">
+                        <label for="note" class="form-label">Note<span class="text-danger">*</span></label>
+                        <input type="text" name="note" class="form-control" placeholder="Ex: e-123" value="{{old('note')}}">
                     </div>
-                    <div id="errorEmployeeFromBox"></div>
+                    <div id="errorInstitutesFromBox"></div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -165,22 +150,23 @@
                     <div class="card-header">
                         <div class="card-title float-none">
                             <div class="text-right">
-                                <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">+ Add Employee</button>
+                                <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">+ Add Institutes</button>
                             </div>
                         </div>
                     </div>
                     <div class="card-body">
                         <!-- Data table on -->
                         <div class="table-responsive">
-                            <table id="employeeData" class="table table-bordered table-striped dataTable dtr-inline">
+                            <table id="institutesData" class="table table-bordered table-striped dataTable dtr-inline">
                                 <thead>
                                     <tr>
                                         <th>Id</th>
-                                        <th>Depertment</th>
-                                        <th>Employee</th>
-                                        <th>Roles & Join</th>
-                                        <th>img</th>
-                                        <th>Salary</th>
+                                        <th>Logo</th>
+                                        <th>Institutes</th>
+                                        <th>Head Sir info.</th>
+                                        <th>Roles & Expiry</th>
+                                        <th>Image</th>
+                                        <th>Signature</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -200,20 +186,18 @@
 @stop
 
 @section('js')
-    <!-- <script src="node_modules/parsleyjs/dist/parsley.min.js"></script>  -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.9.2/parsley.js" integrity="sha512-Fq/wHuMI7AraoOK+juE5oYILKvSPe6GC5ZWZnvpOO/ZPdtyA29n+a5kVLP4XaLyDy9D1IBPYzdFycO33Ijd0Pg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
     <script>
         // create onchange event listener for image input
         document.getElementById('image').onchange = function(evt) {
             const [file] = this.files
             if (file) {
-                // if there is an image, create a preview in employee_image_preview
-                document.getElementById('employee_image_preview').src = URL.createObjectURL(file)
+                // if there is an image, create a preview in institutes_image_preview
+                document.getElementById('institutes_image_preview').src = URL.createObjectURL(file)
             }
         }
         
         $(function (){
-            $('#department_id, #user_id').select2();
+            $('#user_id').select2();
         });
 
         $.ajaxSetup({
@@ -224,10 +208,10 @@
 
         $(document).ready(function(){
             $('#myModal').on('show.bs.modal', function () {
-                $('#employeeAddForm').parsley();
+                $('#institutesAddForm').parsley();
 
                 // Add an event listener for form submission
-                $('#employeeAddForm').on('submit', function(event){
+                $('#institutesAddForm').on('submit', function(event){
                     event.preventDefault(); // Prevent default form submission
 
                     // Serialize the form data
@@ -244,15 +228,15 @@
                         success: function(response) {
 
                             $("#errorBox").html('');
-                            $("#errorEmployeeFromBox").html('');
-                            $("#employeeData").DataTable().ajax.reload();
+                            $("#errorInstitutesFromBox").html('');
+                            $("#institutesData").DataTable().ajax.reload();
                             // Reset form
-                            $("#employeeAddForm").trigger("reset");// $(this).trigger('reset');
-                            $("#employeeAddForm .close").click();// close Modal
+                            $("#institutesAddForm").trigger("reset");// $(this).trigger('reset');
+                            $("#institutesAddForm .close").click();// close Modal
                             // Display toast message
-                            // toast('New Employee added successfully!','success');
+                            // toast('New Institutes added successfully!','success');
                             $('.toast').toast('show');
-                            $('.toast-body').html(`<div class="text-success">New Employee added successfully!</div>`);
+                            $('.toast-body').html(`<div class="text-success">New Institutes added successfully!</div>`);
                             $('.close').click();
 
                         },
@@ -267,7 +251,7 @@
                                 htmlErrors += `<p>${errorJson.errors[key]}</p>`;
                             }
                             // ${errorJson.message}
-                            $("#errorEmployeeFromBox").html(`<div class="alert alert-danger">${htmlErrors}</div>`);
+                            $("#errorInstitutesFromBox").html(`<div class="alert alert-danger">${htmlErrors}</div>`);
 
                         }
                     });
@@ -275,36 +259,37 @@
             });
 
 
-            // Show Employee with Yajra DataTable
-            let table = $('#employeeData').DataTable({
+            // Show Institutes with Yajra DataTable
+            let table = $('#institutesData').DataTable({
                 responsive:true, processing:true, serverSide:true, autoWidth:false,
-                ajax:"{{route('hrm.employee')}}",
+                ajax:"{{route('ins.institutes')}}",
                 columns:[
                     {data:'id', name:'id'},
+                    {data:'logo', name:'logo'},
                     {data:'department', name:'department'},
                     {data:'user_name', name:'user_name'},
                     {data:'roles', name:'roles'},
                     {data:'img', name:'img'},
-                    {data:'salary', name:'salary'},
+                    {data:'signature', name:'signature'},
                     {data:'action', name:'action'},
                 ],
                 order:[[0,"desc"]]
             });
 
-            // Delete Employee javaScript
+            // Delete Institutes javaScript
             $('body').on('click', '#btnDel', function(){
                 //confirmation
                 let id = $(this).data("id");
                 if(confirm('Delete Data '+id+'?')==true){
                     //execute delete
-                    let route = "{{route('hrm.destroy.employee', ':id')}}";
+                    let route = "{{route('ins.destroy.institutes', ':id')}}";
                     route = route.replace(':id', id);
                     $.ajax({
                         url:route,
                         type:"delete",
                         success:function(res){
                             // console.log(res);
-                            $("#employeeData").DataTable().ajax.reload();
+                            $("#institutesData").DataTable().ajax.reload();
                         },
                         error:function(res){
                             $("#errorBox").html('<div class="alert alert-danger">'+res.message+'</div>');
