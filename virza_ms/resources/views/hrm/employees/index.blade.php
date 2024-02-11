@@ -42,7 +42,7 @@
                 <form id="employeeAddForm" data-parsley-validate action="{{route('hrm.store.employee')}}" method="POST" enctype="multipart/form-data">
                 @csrf 
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-md-6">
                                     
                             <div class="form-group">
                                 <label for="employee_id" class="form-label">Employee Id<span class="text-danger">*</span></label>
@@ -59,7 +59,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="department_id" class="form-label">Depertments</label>
-                                <select class="form-control multiple-not " id="department_id" data-placeholder="Select a department" name="department_id">
+                                <select class="form-control" multiple="multiple" id="department_id" data-placeholder="Select a department" name="department_id[]">
                                 @foreach ($depertments as $role)
                                     <option value="{{$role->id}}">{{$role->designation_name}}</option>
                                 @endforeach
@@ -68,7 +68,7 @@
 
                         </div>
                         <!-- End left side  -->
-                        <div class="col-6">
+                        <div class="col-md-6">
 
                             <div class="form-group">
                                 <label for="image" class="form-label">image<span class="text-danger">*</span></label>
@@ -81,7 +81,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-md-6">
 
                             <div class="form-group">
                                 <label for="blood" class="form-label">Blood Group<span class="text-danger">*</span></label>
@@ -106,7 +106,7 @@
 
                         </div>
                         <!--  End left side  --> 
-                        <div class="col-6">
+                        <div class="col-md-6">
                             
                             <div class="form-group">
                                 <label for="phone" class="form-label">Phone<span class="text-danger">*</span></label>
@@ -167,6 +167,9 @@
                             <div class="text-right">
                                 <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">+ Add Employee</button>
                             </div>
+                            <!-- <button type="button" class="btn btn-info btn-sm" data-toggle="tooltip" data-html="true" title="When click this button it show a popup from.">
+                            + Add Employee
+                            </button> -->
                         </div>
                     </div>
                     <div class="card-body">
@@ -274,7 +277,6 @@
                 });
             });
 
-
             // Show Employee with Yajra DataTable
             let table = $('#employeeData').DataTable({
                 responsive:true, processing:true, serverSide:true, autoWidth:false,
@@ -316,6 +318,7 @@
 
             });
 
+            $('[data-toggle="tooltip"]').tooltip();
 
         });
     </script>

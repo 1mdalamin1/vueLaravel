@@ -51,7 +51,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="department_id" class="form-label">Depertments</label>
-                                        <select class="form-control multiple-not " id="department_id" data-placeholder="Select a department" name="department_id">
+                                        <select class="form-control" multiple="multiple" id="department_id" data-placeholder="Select a department" name="department_id[]">
                                         @foreach ($depertments as $role)
                                             <option value="{{$role->id}}" {{$employee->department_id == $role->id ? "selected" : ""}} >{{$role->designation_name}}</option>
                                         @endforeach
@@ -182,7 +182,13 @@
                 document.getElementById('employee_image_preview').src = URL.createObjectURL(file)
             }
         }
+        
+        $(function (){
+            $('#department_id').select2();
+        });
+
     </script>
 @stop
+@section('plugins.Select2', true)
 
 

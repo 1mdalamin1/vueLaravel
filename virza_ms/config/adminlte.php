@@ -359,11 +359,13 @@ return [
             ],
         ],
         [
-            'text'        => 'pages',
-            'url'         => 'admin/pages',
+            'text'        => 'Student',
+            // 'url'         => 'admin/pages',
+            'route'       => 'stu.student',
             'icon'        => 'far fa-fw fa-file',
             'label'       => 4,
             'label_color' => 'success',
+            'icon_color' => 'success',
         ],
         ['header' => 'account_settings'],
         [
@@ -378,9 +380,11 @@ return [
         ],
 
         [
-            'text' => 'test',
-            'route' => 'test',
+            'text'       => 'Exam',
+            'icon_color' => 'success',
+            'route' => 'exams.exam',
             'icon' => 'fa fa-fighter-jet',
+            'active' => ['exams/*'],
         ],
         [
             'text' => 'Test2',

@@ -54,7 +54,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="department_id" class="form-label">Depertments</label>
-                                <select class="form-control multiple-not " id="department_id" data-placeholder="Select a department" name="department_id">
+                                <select class="form-control" multiple="multiple" id="department_id" data-placeholder="Select a department" name="department_id[]">
                                 @foreach ($depertments as $role)
                                     <option value="{{$role->id}}">{{$role->designation_name}}</option>
                                 @endforeach

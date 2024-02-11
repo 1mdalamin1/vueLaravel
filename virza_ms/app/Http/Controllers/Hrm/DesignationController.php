@@ -53,7 +53,18 @@ class DesignationController extends Controller
         $this->validate($request, [
             'designation_name' => 'required'
         ]);
-        $depertmentCreate = Designation::create(["designation_name" => trim($request->designation_name)]);
+        
+        $currentUserId = Auth::user()->id;
+        $institute_id = auth()->user()->iid;
+
+        $depertmentCreate = Designation::create([
+            "designation_name" => trim($request->designation_name),
+            'created_at_user_id' => $currentUserId,
+            'updateted_at_id' => $currentUserId,
+            'institute_id' => $institute_id,
+            'serial_no' => 1,
+            'status' => 'Active'
+        ]);
 
         if ($depertmentCreate) {
             toast('New class added successfully!','success');

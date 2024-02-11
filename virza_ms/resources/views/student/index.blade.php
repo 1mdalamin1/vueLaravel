@@ -1,10 +1,10 @@
 @extends('adminlte::page')
 
-@section('title', 'Institutes | Dashboard')
+@section('title', 'Students | Dashboard')
 
 @section('content_header')
     <div class="d-flex justify-content-between flex-wrap">
-        <!-- <h1>Institutes list</h1> -->
+        <!-- <h1>Students list</h1> -->
                 
         <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="10000">
             <button type="button" class="ml-2 mb-1 mr-1 close text-danger" data-dismiss="toast" aria-label="Close">
@@ -24,13 +24,13 @@
         </div>
 
         <!-- Modal on -->
-        <div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal fade bd-example-modal-lg" id="myModal" role="dialog">
+            <div class="modal-dialog modal-lg modal-dialog-scrollable">
             <!-- Modal content-->
             <div class="modal-content">
             
                 <div class="modal-header">
-                <h4 class="modal-title">Add New School</h4>
+                <h4 class="modal-title">Add New Student</h4>
                 <button type="button" class="close text-danger" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
@@ -39,68 +39,25 @@
                             <div id="errorInstitutesFromBox"></div>
                         </div>
                     </div> -->
-                <form id="institutesAddForm" data-parsley-validate action="{{route('ins.store.institutes')}}" method="POST" enctype="multipart/form-data">
+                <form id="institutesAddForm" data-parsley-validate action="{{route('stu.store.student')}}" method="POST" enctype="multipart/form-data">
                 @csrf 
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                                                                 
                             <div class="form-group">
-                                <label for="institutes_name" class="form-label">Institutes name<span class="text-danger">*</span></label>
-                                <input required data-parsley-required-message="Institutes name is required" type="text" name="name" class="form-control" placeholder="School name" value="{{old('name')}}">
+                                <label for="student_name" class="form-label">Students name<span class="text-danger">*</span></label>
+                                <input required data-parsley-required-message="Students name is required" type="text" name="name" class="form-control" placeholder="Student name" value="{{old('name')}}">
                             </div>
                                                                 
                             <div class="form-group">
-                                <label for="address" class="form-label">Address<span class="text-danger">*</span></label>
-                                <input required data-parsley-required-message="address is required" type="text" name="address" class="form-control" placeholder="School address" value="{{old('address')}}">
+                                <label for="student_father" class="form-label">Students father<span class="text-danger">*</span></label>
+                                <input required data-parsley-required-message="Students father is required" type="text" name="father" class="form-control" placeholder="Student father" value="{{old('father')}}">
                             </div>
-                            
+                                                                
                             <div class="form-group">
-                                <label for="user_id" class="form-label">Head sir Name</label>
-                                <select class="form-control multiple-not " id="user_id" data-placeholder="Select a user name" name="user_id">
-                                @foreach ($users as $role)
-                                    <option value="{{$role->id}}">{{$role->name}}</option>
-                                @endforeach
-                                </select>
+                                <label for="student_mother" class="form-label">Students mother<span class="text-danger">*</span></label>
+                                <input required data-parsley-required-message="Students mother is required" type="text" name="mother" class="form-control" placeholder="Student mother" value="{{old('mother')}}">
                             </div>
-
-                        </div>
-                        <!-- End left side  -->
-                        <div class="col-md-6">
-
-                            <div class="form-group">
-                                <label for="image" class="form-label">Head sir image<span class="text-danger">*</span></label>
-                                <input type="file" id="image" name="image" class="form-control" placeholder="Ex: e-123" value="{{old('image')}}">
-                            </div>
-                            <img id="institutes_image_preview" class="h-64 w-128 object-cover rounded-md" src="{{ old('image') ? Storage::url(old('image')) : '' }}" alt="Institutes image preview" width="200" />
-
-                        </div>
-                        <!-- End Right side side  -->
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="signature" class="form-label">Head sir signature<span class="text-danger">*</span></label>
-                                <input type="file" id="signature" name="signature" class="form-control" placeholder="Ex: e-123" value="{{old('signature')}}">
-                            </div>
-                            <div class="form-group">
-                                <label for="logo" class="form-label">Logo<span class="text-danger">*</span></label>
-                                <input type="file" id="logo" name="logo" class="form-control" placeholder="Ex: e-123" value="{{old('logo')}}">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="expiry_date" class="form-label">Expiry date<span class="text-danger">*</span></label>
-                                <input required type="datetime-local" id="expiry_date" name="expiry_date" class="form-control" value="{{old('expiry_date')}}">
-                            </div>
-                            <div class="form-group">
-                                <label for="limit" class="form-label">Limit No:<span class="text-danger">*</span></label>
-                                <input type="number" id="limit" name="limit" class="form-control" placeholder="Ex: 123" value="{{old('limit')}}">
-                            </div>
-
-                        </div>
-                        <!--  End left side  --> 
-                        <div class="col-md-6">
-                            
                             <div class="form-group">
                                 <label for="phone" class="form-label">Phone<span class="text-danger">*</span></label>
                                 <input type="text" name="phone" id="phone" class="form-control" placeholder="01795xxxxxx" value="{{old('phone')}}" required data-parsley-type="number" data-parsley-type-message="Please enter a valid number address" data-parsley-error-message="Invalid number address" >
@@ -108,7 +65,103 @@
                                     <span class="text-danger">{{ $errors->first('phone') }}</span>
                                 @endif
                             </div>
+                                      
+
+                        </div>
+                        <!-- 1s row 1st col -->
+                        <div class="col-md-4">
+                                                      
+                            <div class="form-group">
+                                <label for="email" class="form-label">Email<span class="text-danger">*</span></label>
+                                <input required data-parsley-required-message="email is required" type="text" name="email" class="form-control" placeholder="Student email" value="{{old('email')}}">
+                            </div>
+                                                      
+                            <div class="form-group">
+                                <label for="address" class="form-label">Address<span class="text-danger">*</span></label>
+                                <input required data-parsley-required-message="address is required" type="text" name="address" class="form-control" placeholder="Student address" value="{{old('address')}}">
+                            </div>
                             
+                            <div class="form-group">
+                                <label for="gender" class="form-label">Gender<span class="text-danger">*</span></label>
+                                <select class="form-control multiple-not " id="gender" data-placeholder="Select a gender" name="gender">
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                                                      
+                            <div class="form-group">
+                                <label for="dob" class="form-label">Date of birth<span class="text-danger">*</span></label>
+                                <input required data-parsley-required-message="Date of birth is required" type="datetime-local" name="dob" class="form-control" placeholder="Student Date of birth" value="{{old('dob')}}">
+                            </div>
+
+                            
+                        </div>
+                        <!-- 1s row 2nd col  -->
+                        <div class="col-md-4">
+
+                            <div class="form-group">
+                                <label for="image" class="form-label">Student image<span class="text-danger">*</span></label>
+                                <input type="file" id="image" name="image" class="form-control" placeholder="Ex: e-123" value="{{old('image')}}">
+                            </div>
+                            <img id="student_image_preview" class="h-64 w-128 object-cover rounded-md" src="{{ old('image') ? Storage::url(old('image')) : '' }}" alt="Students image preview" width="200" />
+
+                        </div>
+                        <!-- 1s row 3rd col -->
+                    </div>
+                <!-- 1st row The End -->
+                    <div class="row">
+                        <div class="col-md-4">
+                            
+                            <div class="form-group">
+                                <label for="blood" class="form-label">1 of 8 blood groups<span class="text-danger">*</span></label>
+                                <select class="form-control multiple-not " id="blood" data-placeholder="Select a blood" name="blood">
+                                    <option value="A RhD positive (A+)">A RhD positive (A+)</option>
+                                    <option value="A RhD negative (A-)">A RhD negative (A-)</option>
+                                    <option value="B RhD positive (B+)">B RhD positive (B+)</option>
+                                    <option value="B RhD negative (B-)">B RhD negative (B-)</option>
+                                    <option value="O RhD positive (O+)">O RhD positive (O+)</option>
+                                    <option value="O RhD negative (O-)">O RhD negative (O-)</option>
+                                    <option value="AB RhD positive (AB+)">AB RhD positive (AB+)</option>
+                                    <option value="AB RhD negative (AB-)">AB RhD negative (AB-)</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="session" class="form-label">Session:<span class="text-danger">*</span></label>
+                                <input type="number" id="session" name="session" class="form-control" placeholder="Ex: 2023" value="{{old('session')}}">
+                            </div>
+                                                        
+                            <div class="form-group">
+                                <label for="religion" class="form-label">Religion<span class="text-danger">*</span></label>
+                                <input required data-parsley-required-message="Religion is required" type="text" id="religion" name="religion" class="form-control" placeholder="Student religion" value="{{old('religion')}}">
+                            </div>
+
+                        </div>
+                        <!--  End left side  --> 
+                        <div class="col-md-4">
+                            
+                            <div class="form-group">
+                                <label for="department_id" class="form-label">Class</label>
+                                <select class="form-control multiple-not " id="department_id" data-placeholder="Select a user name" name="department_id">
+                                @foreach ($department as $role)
+                                    <option value="{{$role->id}} | {{$role->designation_name}}">{{$role->designation_name}}</option>
+                                @endforeach
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="roll_no" class="form-label">Class roll:<span class="text-danger">*</span></label>
+                                <input type="number" id="roll_no" name="roll_no" class="form-control" placeholder="Ex: 1" value="{{old('roll_no')}}">
+                            </div>
+                                                
+                            <div class="form-group">
+                                <label for="note" class="form-label">Note<span class="text-danger">*</span></label>
+                                <input required data-parsley-required-message="Note is required" type="text" id="note" name="note" class="form-control" placeholder="Student note" value="{{old('note')}}">
+                            </div>
+
+                        </div>
+                        <div class="col-md-4">
                             
                             <div class="form-group">
                                 <label for="status" class="form-label">Status<span class="text-danger">*</span></label>
@@ -118,14 +171,15 @@
                                 </select>
                             </div>
 
+
+
+
+
+
                         </div>
                         <!-- End Right side side  -->
                     </div>
                         
-                    <div class="form-group">
-                        <label for="note" class="form-label">Note<span class="text-danger">*</span></label>
-                        <input type="text" name="note" class="form-control" placeholder="Ex: e-123" value="{{old('note')}}">
-                    </div>
                     <div id="errorInstitutesFromBox"></div>
                 </div>
                 <div class="modal-footer">
@@ -145,26 +199,26 @@
                     <div class="card-header">
                         <div class="d-flex justify-content-between">
                             <div class="text-left">
-                                <h2>Institutes list</h2>
+                                <h2>Students list</h2>
                             </div>
                             <div class="text-right">
-                                <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">+ Add Institutes</button>
+                                <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">+ Add Students</button>
                             </div>
                         </div>
                     </div>
                     <div class="card-body">
                         <!-- Data table on -->
                         <div class="table-responsive">
-                            <table id="institutesData" class="table table-bordered table-striped dataTable dtr-inline">
+                            <table id="studentData" class="table table-bordered table-striped dataTable dtr-inline">
                                 <thead>
                                     <tr>
                                         <th>Id</th>
-                                        <th>Logo</th>
-                                        <th>Institutes</th>
-                                        <th>Head Sir info.</th>
-                                        <th>Roles & Expiry</th>
+                                        <th>Name & Roll</th>
+                                        <th>Religion & dob</th>
+                                        <th>Parents</th>
+                                        <th>Contact</th>
                                         <th>Image</th>
-                                        <th>Signature</th>
+                                        <th>Addmit date</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -184,7 +238,7 @@
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">School Information Details</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Student Information Details</h5>
             <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         </div>
         <div class="modal-body show-school-info">
@@ -216,6 +270,8 @@
                 </div>
             </div>
 
+
+
         </div>
         </div>
     </div>
@@ -234,8 +290,8 @@
         document.getElementById('image').onchange = function(evt) {
             const [file] = this.files
             if (file) {
-                // if there is an image, create a preview in institutes_image_preview
-                document.getElementById('institutes_image_preview').src = URL.createObjectURL(file)
+                // if there is an image, create a preview in student_image_preview
+                document.getElementById('student_image_preview').src = URL.createObjectURL(file)
             }
         }
         
@@ -272,14 +328,14 @@
 
                             $("#errorBox").html('');
                             $("#errorInstitutesFromBox").html('');
-                            $("#institutesData").DataTable().ajax.reload();
+                            $("#studentData").DataTable().ajax.reload();
                             // Reset form
                             $("#institutesAddForm").trigger("reset");// $(this).trigger('reset');
                             $("#institutesAddForm .close").click();// close Modal
                             // Display toast message
-                            // toast('New Institutes added successfully!','success');
+                            // toast('New Students added successfully!','success');
                             $('.toast').toast('show');
-                            $('.toast-body').html(`<div class="text-success">New Institutes added successfully!</div>`);
+                            $('.toast-body').html(`<div class="text-success">New Students added successfully!</div>`);
                             $('.close').click();
 
                         },
@@ -302,37 +358,38 @@
             });
 
 
-            // Show Institutes with Yajra DataTable
-            let table = $('#institutesData').DataTable({
+            // Show Students with Yajra DataTable
+            let table = $('#studentData').DataTable({
                 responsive:true, processing:true, serverSide:true, autoWidth:false,
-                ajax:"{{route('ins.institutes')}}",
+                ajax:"{{route('stu.student')}}",
                 columns:[
                     {data:'id', name:'id'},
-                    {data:'logo', name:'logo'},
-                    {data:'department', name:'department'},
-                    {data:'user_name', name:'user_name'},
-                    {data:'roles', name:'roles'},
+                    {data:'name_roll', name:'name_roll'},
+                    {data:'rg_dob', name:'rg_dob'},
+                    {data:'parents', name:'parents'},
+                    {data:'contact', name:'contact'},
                     {data:'img', name:'img'},
-                    {data:'signature', name:'signature'},
+                    {data:'addmit_date', name:'addmit_date'},
                     {data:'action', name:'action'},
+                    // 'name_roll', 'rg_dob', 'parents', 'contact', 'img', 'addmit_date', 'action'
                 ],
                 order:[[0,"desc"]]
             });
 
-            // Delete Institutes javaScript
+            // Delete Students javaScript
             $('body').on('click', '#btnDel', function(){
                 //confirmation
                 let id = $(this).data("id");
                 if(confirm('Delete Data '+id+'?')==true){
                     //execute delete
-                    let route = "{{route('ins.destroy.institutes', ':id')}}";
+                    let route = "{{route('stu.destroy.student', ':id')}}";
                     route = route.replace(':id', id);
                     $.ajax({
                         url:route,
                         type:"delete",
                         success:function(res){
                             // console.log(res);
-                            $("#institutesData").DataTable().ajax.reload();
+                            $("#studentData").DataTable().ajax.reload();
                         },
                         error:function(res){
                             $("#errorBox").html('<div class="alert alert-danger">'+res.message+'</div>');
@@ -344,11 +401,11 @@
 
             });
 
-            // Show Institutes javaScript
+            // Show Students javaScript
             $('body').on('click', '#btnShow', function(){
                 //confirmation
                 let id = $(this).data("id");
-                let route = "{{route('ins.show.institutes', ':id')}}";
+                let route = "{{route('stu.show.student', ':id')}}";
                 route = route.replace(':id', id);
                 $.ajax({
                     url:route,

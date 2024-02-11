@@ -9,7 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Auth;
-use DB;
+use Illuminate\Support\Facades\DB;
+use App\Helpers\HelperFunctions; // This is store-reusable function
 use App\Models\Designation;
 use App\Models\Employee;
 use Yajra\DataTables\DataTables;
@@ -34,13 +35,23 @@ class EmployeeController extends Controller
             return $this->getEmployees(); // $request->role_id
         }
             
-        //    dd($request);
-        //    return redirect()->route('hrm.employee')->with('success', 'Employee added successfully')->with('imagePath', $request);
-        // {{ session('imagePath') }} // use this in blade.php
+        // Retrieve users whose user_id does not exist in the employees table
+        $users = User::whereNotIn('id',function($query){$query->select('user_id')->from('employees');})->get();
+        
+        # 2nd way
+        // Get all department IDs from the employees
+        $depertmentIds = Employee::pluck('department_id')
+        ->flatMap(function ($ids) {
+            return explode(',', $ids);
+        })
+        ->unique()
+        ->sort();
 
+        // Get departments not in $depertmentIds
+        $departments = Designation::whereNotIn('id', $depertmentIds)->get();  // Designation::get()
         return view('hrm.employees.index')->with([
-            "users" => User::get(),
-            "depertments" => Designation::get()
+            "users" => $users, // User::get(),
+            "depertments" => $departments
         ]);
         
     }
@@ -55,9 +66,51 @@ class EmployeeController extends Controller
         //     return $this->getEmployees(); // $request->role_id
         // }
 
+        // Retrieve users whose user_id does not exist in the employees table
+        $users = User::whereNotIn('id', function ($query) {
+            $query->select('user_id')->from('employees');
+        })->get();
+
+    /*  # 3rd way
+        // Retrieve designations whose department_id does not exist in the employees table
+        $departments = DB::table('designations')
+            ->leftJoin('employees', function ($join) {
+                $join->on('designations.id', '=', DB::raw("TRIM(BOTH ',' FROM employees.department_id)"));
+            })
+            ->whereNull('employees.id')
+            ->select('designations.*')
+            ->get();
+    */
+    /*
+        # 2nd way
+        // Get all department IDs from the employees
+        $depertmentIds = Employee::pluck('department_id')
+        ->flatMap(function ($ids) {
+            return explode(',', $ids);
+        })
+        ->unique()
+        ->sort();
+
+        // Get departments not in $depertmentIds
+        $departments = Designation::whereNotIn('id', $depertmentIds)->get();
+    */ 
+      
+        # 1st way      
+        $employeeCids = Employee::get();
+        $depertmentIds = [];
+        foreach ($employeeCids as $key => $value) {
+            $cIds = explode(',', $value->department_id);
+            $depertmentIds = array_merge($depertmentIds, $cIds);
+        }
+        $depertmentIds = array_unique($depertmentIds);
+        sort($depertmentIds);
+        $departments = Designation::whereNotIn('id', $depertmentIds)->get();
+    
+        
+        // Designation::get()
         return view('hrm.employees.add')->with([
-            "users" => User::get(),
-            "depertments" => Designation::get()
+            "users" => $users,
+            "depertments" => $departments 
         ]);
     }
 
@@ -82,19 +135,32 @@ class EmployeeController extends Controller
             'salary' => 'required',
             'status' => 'required',
         ]);
+
+        // Check if user_id already exists
+        $existingEmployee = Employee::where('user_id', $request->user_id)->first();
+        if ($existingEmployee) {
+            toast('User already exists.', 'error');
+            // return redirect()->route('hrm.employee')->with('error', 'User Already Exists');
+            return back()->withInput();
+        }
+
         $currentUserId = Auth::user()->id;
+        $iid = auth()->user()->iid;
         $filePath="images/a.png";
         if ($request->hasFile('image')) {
-                // put image in the public storage
+            // put image in the public storage
             $filePath = Storage::disk('public')->put('images/employee', request()->file('image'));
-            //    $validated['image'] = $filePath;
+            // $validated['image'] = $filePath;
         }
+        
+        $intArray = array_map('intval', $request->department_id);
+        $depertmentIds = implode(',', $intArray);
 
         if($validated){
             $addEmployees = Employee::create([
                 'employee_id' => strtolower(trim($request->employee_id)),
                 'user_id' => trim($request->user_id),
-                'department_id' => trim($request->department_id),
+                'department_id' => trim($depertmentIds),
                 'phone' => trim($request->phone),
                 'address' => trim($request->address),
                 'gender' => trim($request->gender),
@@ -106,7 +172,7 @@ class EmployeeController extends Controller
                 'salary' => trim($request->salary),
                 'created_at_id' => $currentUserId,
                 'updateted_at_id' => $currentUserId,
-                'institute_id' => 11,
+                'institute_id' => $iid,
                 'status' => trim($request->status)
             ]);
         }
@@ -135,9 +201,9 @@ class EmployeeController extends Controller
     public function edit($id)
     {
         $employee = Employee::findOrFail($id);
-    
+        $eId = $employee->user_id;
         return view('hrm.employees.edit', compact('employee'))->with([
-            "users" => User::get(),
+            "users" => User::where('id', $eId)->get(),
             "depertments" => Designation::get()
         ]);
     }
@@ -148,7 +214,7 @@ class EmployeeController extends Controller
     public function update(Request $request, $id)
     {
         $employee = Employee::findOrFail($id);
-
+        $idUser = $employee->user_id;
         $request->validate([
             'address' => 'required|string|max:255'.$id,
             'employee_id' => 'required',
@@ -175,11 +241,13 @@ class EmployeeController extends Controller
             $filePath = $employee->image;
         }
 
+        $intArray = array_map('intval', $request->input('department_id'));
+        $depertmentIds = implode(',', $intArray);
         $depertmentUpdate = $employee->update([
             'address' => $request->input('address'),
             'employee_id' => $request->input('employee_id'),
-            'user_id' => $request->input('user_id'),
-            'department_id' => $request->input('department_id'),
+            'user_id' => $idUser,
+            'department_id' => $depertmentIds,
             'phone' => $request->input('phone'),
             'gender' => $request->input('gender'),
             'blood' => $request->input('blood'),
@@ -225,18 +293,26 @@ class EmployeeController extends Controller
     private function getEmployees()
     {
         $data = Employee::with(['user', 'user.roles', 'department'])->get();
-
+        // $idClassName = Designation::get()->pluck('designation_name', 'id')->toArray();
+        // var_dump($data->department_id);
         return DataTables::of($data)
             ->addColumn('user_name', function($row) {
                 $info = "";
                 $info .= '<b>'.ucfirst($row->user->name).'</b>';
-                $info .= '<p>'.$row->user->email.'</p>';
+                $info .= '<p><a href="mailto:'.$row->user->email.'"><i class="fas fa-envelope" data-toggle="tooltip" data-placement="top" title="'.$row->user->email.'"></i></a> | ';
+                $info .= '<a href="tel:'.$row->phone.'"> '.$row->phone.'</a></p>';
+                // $info .= '<a href="tel:'.$row->phone.'" data-toggle="tooltip" data-placement="top" title="'.$row->phone.'"><i class="fas fa-phone"></i> '.$row->phone.'</a></p>';
+                
                 return $info;
             })
             ->addColumn('department', function($row) {
+                $cIds = $row->department_id;
+                $idClassName = Designation::get()->pluck('designation_name', 'id')->toArray();
+                // $cNames= $this->get_name_by_ids_comma_saparate_string($idClassName, $cIds);
+                $cNames= get_name_by_ids_comma_separate_string($idClassName, $cIds);
                 $dep = '';
-                $dep .= '<b>'.ucfirst($row->department->designation_name).'</b>';
-                $dep .= '<p>'.$row->phone.'</p>';
+                // $dep .= '<b>'.$cNames.'</b>'; badge-success | badge word-wrap
+                $dep .= '<span class="badge bg-dark" style="text-wrap: balance;">' .$cNames. '</span> ';
                 return $dep;
             })
             ->addColumn('email', function($row) {

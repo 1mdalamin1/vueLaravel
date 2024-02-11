@@ -92,12 +92,30 @@ php artisan migrate
 php artisan make:controller InstitutionController -r
 php artisan make:model Institution
 
+php artisan make:migration create_student_table
+php artisan make:migration create_exam_table
+php artisan make:migration create_mark_table
+php artisan make:controller StudentController -r
+php artisan make:controller ExamController -r
+php artisan make:controller MarkController -r
+php artisan make:model Student
+php artisan make:model Exam
+php artisan make:model Mark
+
+php artisan migrate
+
 
 
 
 php artisan route:list 
 
 
+if (Auth::check()) {
+    $iid = auth()->user()->iid;
+    // $iid now contains the value of the iid column for the current user
+} else {
+    // User is not logged in
+}
 
 
 

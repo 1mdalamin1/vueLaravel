@@ -15,7 +15,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-6">
+            <div class="col-md-6">
 
                 <form action="{{route('hrm.update.designation', $designation->id)}}" method="POST">
                     <!-- @method('patch') -->

@@ -118,9 +118,14 @@ class InstitutionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $institute = Institution::findOrFail($id);
+    
+        $user = User::find($institute->user_id); // Assuming 'user_id' is the foreign key in your institutes table
+
+        return view('school.show', compact('institute', 'user'));
+        // return view('school.show')->with('institute', $institute);
     }
 
     /**
@@ -294,8 +299,12 @@ class InstitutionController extends Controller
                 if (Auth::user()->can('ins.edit.institutes')) {
                     $action .= "<a class='btn btn-xs btn-warning' id='btnEdit' href='" . route('ins.edit.institutes', $row->id) . "'><i class='fas fa-edit'></i></a>";
                 }
+                if (Auth::user()->can('ins.show.institutes')) {
+                    $action .= "<button class='btn btn-xs btn-success' id='btnShow' data-id='" . $row->id . "'  data-toggle='modal' data-target='#showModal' ><i class='fas fa-eye'></i></button>";
+                    // $action .= "<a class='btn btn-xs btn-success' id='btnShow' href='" . route('ins.edit.institutes', $row->id) . "'><i class='fas fa-eye'></i></a>";
+                }
                 if (Auth::user()->can('ins.destroy.institutes')) {
-                    $action .= " <button class='btn btn-xs btn-outline-danger' id='btnDel' data-id='" . $row->id . "'><i class='fas fa-trash'></i></button>";
+                    $action .= " <button class='btn btn-xs btn-danger' id='btnDel' data-id='" . $row->id . "'><i class='fas fa-trash'></i></button>";
                 }
                 return $action;
             })
